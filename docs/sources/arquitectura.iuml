@@ -1,0 +1,30 @@
+@startuml
+
+package mastermind #DDDDDD { } 
+mastermind .down.> mastermind.views.graphics
+mastermind .down.> mastermind.views.console
+mastermind .down.> mastermind.controllers
+mastermind .down.> mastermind.views
+
+package mastermind.controllers #DDDDDD { } 
+mastermind.controllers .down.> mastermind.models
+mastermind.controllers .down.> java.util
+
+package mastermind.models #DDDDDD { }
+package java.util{ }
+mastermind.models .down.> java.util
+
+package utils #DDDDDD { } 
+package java.io{ }
+utils .down.> java.io
+
+package mastermind.views #DDDDDD { } 
+mastermind.views .down.> mastermind.controllers
+
+package mastermind.views.console #DDDDDD { } 
+mastermind.views.console .down.> mastermind.views
+mastermind.views.console .down.> mastermind.controllers 
+mastermind.views.console .down.> utils
+
+package mastermind.views.graphics #DDDDDD { } 
+@enduml

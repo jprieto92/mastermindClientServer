@@ -1,0 +1,40 @@
+@startuml
+class mastermind.utils.ClosedInterval{
+- int min
+- int max
+
++ ClosedInterval(int min, int max)
++ includes(int value) : boolean
++ toString() : String
+}
+
+class mastermind.utils.Console{
++ {static} Console console
+- BufferedReader bufferedReader
+
++ {static} instance() : Console
++ readString(String title) : String
++ readString() : String
++ readInt(String title) : int
++ readChar(String title) : char
++ writeln() : void
++ write() : void
++ writeln(String string) : void
++ write(char character) : void
+- writeError(String format) : void
+}
+mastermind.utils.Console *-down-> java.io.BufferedReader
+mastermind.utils.Console ..> java.io.InputStreamReader
+
+class mastermind.utils.YesNoDialog{
+- {static} AFIRMATIVE: char
+- {static} NEGATIVE: char
+- {static} QUESTION: String
+- {static} MESSAGE: String
+- char answer
++ read(String title): boolean
++ read(): boolean
+- {static} isAfirmative(char answer): boolean
+- {static} isNegative(char answer): boolean
+}
+@enduml

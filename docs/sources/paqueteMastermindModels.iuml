@@ -1,0 +1,140 @@
+@startuml
+class  mastermind.models.Board{
+- {static} final int MAX_LONG
+- SecretCombination secretCombination
+- List<ProposedCombination> proposedCombination
+- List<Result> results
+- int attemps
+
++ Board()
++ reset() : void
++ addProposedCombination(ProposedCombination proposedCombination) : void
++ isLooser() : boolean
++ isWinner() : boolean
++ getAttemps() : int
++ getProposedCombination(int position) : ProposedCombination
++ getResult(int position) : Result
+}
+mastermind.models.Board *-down-> mastermind.models.ProposedCombination
+mastermind.models.Board *-down-> mastermind.models.SecretCombination
+mastermind.models.Board *-down-> mastermind.models.Result
+mastermind.models.Board ..> java.util.ArrayList
+'mastermind.controllers.ControllerVisitor ..> mastermind.controllers.StartController
+'mastermind.controllers.Logic *-down-> mastermind.models.Game
+'mastermind.controllers.UseCaseController <|-down- mastermind.controllers.StartController
+
+enum mastermind.models.Color{
++ RED : Color
++ BLUE : Color
++ YELLOW : Color
++ GREEN : Color
++ ORANGE : Color
++ PURPLE : Color
+
++ {static} length() : int
+}
+
+abstract class mastermind.models.Combination{
+- {static} final int WIDTH = 4
+# List<Color> colors
+
+# Combination()
++ {static} getWidth() : int
+}
+mastermind.models.Combination *-down-> mastermind.models.Color
+mastermind.models.Combination ..> java.util.ArrayList
+
+enum mastermind.models.Error{
++ DUPLICATED : Error
++ WRONG_CHARACTERS : Error
++ WRONG_LENGTH : Error
++ NULL : Error
+
++ isNull() : boolean
+}
+
+class  mastermind.models.Game{
+- Board board
+- Turn turn
+
++ Game()
++ reset() : void
++ setUser() : void
++ isMaxAttempsReached() : boolean
++ addProposedCombination(ProposedCombination proposedCombination) : void
++ isMasterMind() : boolean
++ getAttemps() : int
++ getResult(int position) : Result
++ getProposedCombination(int position) : ProposedCombination
+}
+mastermind.models.Game *-down-> mastermind.models.Board
+mastermind.models.Game *-down-> mastermind.models.Turn
+
+class  mastermind.models.Player{
+- Board board
+
++ Player(Board board)
++ addProposedCombination(ProposedCombination proposedCombination) : void
+}
+mastermind.models.Player *-down-> mastermind.models.Board
+
+class  mastermind.models.ProposedCombination{
++ Contains(Color color, int position) : boolean
++ Contains(Color color) : boolean
++ getColors() : List<Color>
++ setCombination(String characters) : Error
+}
+mastermind.models.ProposedCombination ..> mastermind.models.Color
+mastermind.models.ProposedCombination ..> java.util.ArrayList
+mastermind.models.Combination <|-down- mastermind.models.ProposedCombination
+
+class  mastermind.models.Result{
+- int blacks
+- int whites
+
++ Result(int blacks, int whites)
++ isWinner() : boolean
++ getBlacks() : int
++ getWhites() : int
+}
+mastermind.models.Result ..> mastermind.models.Combination
+
+class  mastermind.models.SecretCombination{
++ SecretCombination()
++ getResult(ProposedCombination) : Result
+}
+mastermind.models.SecretCombination ..> mastermind.models.Color
+mastermind.models.ProposedCombination ..> java.util.Collections
+mastermind.models.ProposedCombination ..> java.util.Random
+mastermind.models.Combination <|-down- mastermind.models.SecretCombination
+
+class  mastermind.models.State{
+- StateValue stateValue
+
++ State()
++ reset() : void
++ next() : void
++ getValueState() : StateValue
+}
+mastermind.models.State *-down-> mastermind.models.StateValue
+
+enum mastermind.models.StateValue{
++ INITIAL : StateValue
++ IN_GAME : StateValue
++ RESUME : StateValue
++ EXIT : StateValue
+}
+
+class  mastermind.models.Turn{
+- Player player
+- Board board
+
++ Turn(Board board)
++ setUser() : void
++ addProposedCombination(ProposedCombination proposedCombination) : void
+- getPlayer() : player
+}
+mastermind.models.Turn *-down-> mastermind.models.Player
+mastermind.models.Turn *-down-> mastermind.models.Board
+
+@enduml

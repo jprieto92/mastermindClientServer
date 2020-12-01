@@ -1,0 +1,85 @@
+@startuml
+
+class  mastermind.views.console.ColorView{
+- {static} final char[] INITIALS
+- Color color 
+
++ {static} allInitials() : String
++ {static} getInstance(chat character) : Color
++ write() : void
+}
+mastermind.views.console.ColorView *-down-> mastermind.models.Color
+mastermind.views.console.ColorView ..> mastermind.utils.Console
+
+class  mastermind.views.console.ConsoleView{
+- StartView startView
+- PlayView playView
+- ResumeView resumeView
+
++ interact(UseCaseController controller) : void
+~ visit(StartController startController) : void
+~ visit(PlayController playController) : void
+~ visit(ResumeController resumeController) : void
+}
+mastermind.views.View <|-down- mastermind.views.console.ConsoleView
+mastermind.views.console.ConsoleView *-down-> mastermind.views.console.StartView
+mastermind.views.console.ConsoleView *-down-> mastermind.views.console.PlayView
+mastermind.views.console.ConsoleView *-down-> mastermind.views.console.ResumeView
+' mastermind.views.console.View ..> mastermind.controllers.UseCaseController
+' mastermind.views.console.View ..> mastermind.controllers.PlayController
+' mastermind.views.console.View ..> mastermind.controllers.StartController
+' mastermind.views.console.View ..> mastermind.controllers.ResumeController
+
+class  mastermind.views.console.ErrorView{
++ ErrorView(Error error)
++ writeln() : void
+}
+mastermind.views.ErrorView <|-down- mastermind.views.console.ErrorView
+' mastermind.views.console.ErrorView ..> mastermind.models.Error
+mastermind.views.console.ErrorView ..> mastermind.utils.Console
+
+class  mastermind.views.console.PlayView{
++ interact(PlayController playController) : void
+- proposeCombination(PlayController playController) : void
+}
+mastermind.views.console.PlayView ..> mastermind.controllers.PlayController
+' mastermind.views.console.PlayView ..> mastermind.models.ProposedCombination
+mastermind.views.console.PlayView ..> mastermind.views.MessageView
+mastermind.views.console.PlayView ..> mastermind.views.console.SecretCombinationView
+mastermind.views.console.PlayView ..> mastermind.views.console.ProposedCombinationView
+
+class  mastermind.views.console.ProposedCombinationView{
++ write() : void
++ read() : ProposedCombination
+}
+mastermind.views.console.ProposedCombinationView ..> mastermind.utils.Console
+mastermind.views.console.ProposedCombinationView ..> mastermind.views.console.ErrorView
+mastermind.views.console.ProposedCombinationView ..> mastermind.views.MessageView
+
+class  mastermind.views.console.ResultView{
++ writeln(ProposedCombination proposedCombination, Result result) : void
+}
+mastermind.views.console.ResultView ..> mastermind.views.console.ColorView
+mastermind.views.console.ResultView ..> mastermind.views.MessageView
+
+class  mastermind.views.console.ResumeView{
++ interact(ResumeController resumeController) : boolean
+}
+mastermind.views.console.ResumeView ..> mastermind.controllers.ResumeController
+mastermind.views.console.ResumeView ..> mastermind.views.YesNoDialog
+mastermind.views.console.ResumeView ..> mastermind.views.MessageView
+
+class  mastermind.views.console.SecretCombinationView{
++ writeln() : void
+}
+mastermind.views.console.SecretCombinationView ..> mastermind.utils.Console
+mastermind.views.console.SecretCombinationView ..> mastermind.views.MessageView
+
+class  mastermind.views.console.StartView{
++ interact(StartController startController) : void
+}
+mastermind.views.console.StartView ..> mastermind.controllers.StartController
+mastermind.views.console.ResumeView ..> mastermind.views.MessageView
+mastermind.views.console.ResumeView ..> mastermind.views.console.SecretCombinationView
+
+@enduml

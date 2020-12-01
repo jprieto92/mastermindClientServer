@@ -1,0 +1,64 @@
+@startuml
+interface  mastermind.controllers.ControllerVisitor{
++ visit(StartController startController) : void
++ visit(PlayController playController) : void
++ visit(ResumeController resumeController) : void
+}
+mastermind.controllers.ControllerVisitor ..> mastermind.controllers.StartController
+mastermind.controllers.ControllerVisitor ..> mastermind.controllers.PlayController
+mastermind.controllers.ControllerVisitor ..> mastermind.controllers.ResumeController
+
+class mastermind.controllers.Logic{
+- Game Game
+- State state
+- Map<StateValue, UseCaseController> controllers
+
++ Logic()
++ getController() : UseCaseController
+}
+mastermind.controllers.Logic *-down-> mastermind.models.Game
+mastermind.controllers.Logic *-down-> mastermind.models.State
+mastermind.controllers.Logic *-down-> java.util.HashMap
+
+abstract class mastermind.controllers.UseCaseController{
+# Game game
+# State state
+
++ UseCaseController(Game game, State state)
++ next : void
++ {abstract} accept(ControllerVisitor controllerVisitor) : void
+}
+mastermind.controllers.UseCaseController *-down-> mastermind.models.Game
+mastermind.controllers.UseCaseController *-down-> mastermind.models.State
+mastermind.controllers.UseCaseController ..> mastermind.controllers.ControllerVisitor
+class mastermind.controllers.StartController{
+
++ StartController(Game game, State state)
++ setUser() : void
++ accept(ControllerVisitor controllerVisitor) : void
+}
+mastermind.controllers.UseCaseController <|-down- mastermind.controllers.StartController
+
+class mastermind.controllers.PlayController{
+
++ PlayController(Game game, State state)
++ isMaxAttempsReached() : boolean
++ isMasterMind() : boolean
++ getAttemps() : int
++ getResult(int position) : Result
++ getProposedCombination(int position) : ProposedCombination
++ proposeCombination() : void
++ accept(ControllerVisitor controllerVisitor) : void
+}
+mastermind.controllers.UseCaseController <|-down- mastermind.controllers.PlayController
+
+class mastermind.controllers.ResumeController{
+
++ ResumeController(Game game, State state)
++ resume() : void
++ accept(ControllerVisitor controllerVisitor) : void
+}
+mastermind.controllers.UseCaseController <|-down- mastermind.controllers.ResumeController
+
+
+@enduml

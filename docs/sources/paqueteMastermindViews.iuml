@@ -1,0 +1,31 @@
+@startuml
+class  mastermind.views.ErrorView{
++ {static} MESSAGES: String[]
+# error: Error
++ ErrorView(Error)
+}
+mastermind.views.ErrorView *-down-> mastermind.models.Error
+
+enum  mastermind.views.MessageView{
++ ATTEMPS: MessageView 
++ SECRET: MessageView
++ RESUME: MessageView
++ RESULT: MessageView
++ PROPOSED_COMBINATION: MessageView
++ TITLE: MessageView
++ WINNER: MessageView
++ LOOSER: MessageView
+- message: String
+- MessageView(String)
++ write()
++ writeln()
++ writeln(int attemps)
++ writeln(int blacks, int whites)
+}
+
+abstract class  mastermind.views.View{
++ interact(Controller): void
+}
+mastermind.controllers.ControllerVisitor <|-down- mastermind.views.View
+mastermind.views.View ..> mastermind.controllers.UseCaseController
+@enduml
