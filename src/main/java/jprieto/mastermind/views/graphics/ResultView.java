@@ -2,19 +2,19 @@ package jprieto.mastermind.views.graphics;
 
 import javax.swing.JLabel;
 
-import jprieto.mastermind.controllers.ProposalController;
+import jprieto.mastermind.controllers.PlayController;
 import jprieto.mastermind.views.MessageView;
 
 @SuppressWarnings("serial")
 class ResultView extends JLabel {
 	
-	private ProposalController proposalController;
+	private PlayController playController;
 
-	ResultView(ProposalController proposalController) {
-		this.proposalController = proposalController;
+	ResultView(PlayController playController) {
+		this.playController = playController;
 		this.setText(MessageView.RESULT.getMessage()
-				.replaceFirst("#blacks", "" + this.proposalController.getBlacks(this.proposalController.getAttempts()-1))
-				.replaceFirst("#whites", "" + this.proposalController.getWhites(this.proposalController.getAttempts()-1)));
+				.replaceFirst("#blacks", "" + this.playController.getBlacks(this.playController.getAttempts()-1))
+				.replaceFirst("#whites", "" + this.playController.getWhites(this.playController.getAttempts()-1)));
 	}
 	
 }

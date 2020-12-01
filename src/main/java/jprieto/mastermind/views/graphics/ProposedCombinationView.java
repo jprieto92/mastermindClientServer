@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.JLabel;
 
-import jprieto.mastermind.controllers.ProposalController;
+import jprieto.mastermind.controllers.PlayController;
 import jprieto.mastermind.types.Color;
 import jprieto.mastermind.views.ColorView;
 
@@ -14,12 +14,12 @@ class ProposedCombinationView extends JLabel {
 
 	public static final int ERROR_CODE = -1;
 	
-	private ProposalController proposalController;
+	private PlayController playController;
 
-	ProposedCombinationView(ProposalController proposalController) {
-		this.proposalController = proposalController;
+	ProposedCombinationView(PlayController proposalController) {
+		this.playController = proposalController;
 		String initials = "";
-		for (Color color : this.proposalController.getColors(this.proposalController.getAttempts()-1)) {
+		for (Color color : this.playController.getColors(this.playController.getAttempts()-1)) {
 			initials += new ColorView(color).getInitial();
 		}
 		this.setText(initials);
