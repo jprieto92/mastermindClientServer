@@ -7,8 +7,6 @@ public abstract class StartController extends AcceptorController {
   public StartController(Session session) {
     super(session);
   }
-
-  public abstract int getWidth();
   
   public abstract void initGame();
 
