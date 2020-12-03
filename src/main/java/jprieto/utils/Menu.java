@@ -3,7 +3,7 @@ package jprieto.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Menu {
+public abstract class Menu extends WithConsoleView{
 
   private static final String OPTION = "Option? [1-#size]: ";
   private List<Command> commandList;
@@ -20,15 +20,14 @@ public abstract class Menu {
       }
     }
     int option;
-    Console console = Console.instance();
     boolean error;
     do {
       error = false;
-      console.writeln();
+      this.console.writeln();
       for (int i = 0; i < commands.size(); i++) {
-        console.writeln((i + 1) + ") " + commands.get(i).getTitle());
+        this.console.writeln((i + 1) + ") " + commands.get(i).getTitle());
       }
-      option = console.readInt(Menu.OPTION.replace("#size", "" + commands.size())) - 1;
+      option = this.console.readInt(Menu.OPTION.replace("#size", "" + commands.size())) - 1;
       if (!new ClosedInterval(0, commands.size() - 1).isIncluded(option)) {
         error = true;
       }
