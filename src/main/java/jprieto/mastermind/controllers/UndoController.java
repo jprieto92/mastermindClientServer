@@ -1,19 +1,23 @@
 package jprieto.mastermind.controllers;
 
 import jprieto.mastermind.models.Session;
+import jprieto.mastermind.models.SessionImplementation;
 
-public class UndoController extends UseCaseController {
+public class UndoController extends Controller {
+	
+  private SessionImplementation sessionImplementation;
 
-  UndoController(Session session) {
+  public UndoController(Session session) {
     super(session);
+    this.sessionImplementation = ((SessionImplementation) this.session);
   }
 
-  void undo() {
-    this.session.undo();
+  public void undo() {
+    this.sessionImplementation.undo();
   }
 
-  boolean undoable() {
-    return this.session.undoable();
+  public boolean undoable() {
+    return this.sessionImplementation.undoable();
   }
 
 }

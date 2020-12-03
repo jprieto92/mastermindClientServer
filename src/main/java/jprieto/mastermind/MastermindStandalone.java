@@ -1,7 +1,6 @@
 package jprieto.mastermind;
 
-import jprieto.mastermind.controllers.Logic;
-//import jprieto.tictactoe.controllers.implementation.LogicImplementation;
+import jprieto.mastermind.controllers.implementation.LogicImplementation;
 
 public class MastermindStandalone extends Mastermind{
 	
@@ -10,7 +9,7 @@ public class MastermindStandalone extends Mastermind{
 	}
 
 	@Override
-	protected Logic createLogic() {
-		return new Logic();
+	protected LogicImplementation createLogic() {
+		return new LogicImplementation();
 	}
 }

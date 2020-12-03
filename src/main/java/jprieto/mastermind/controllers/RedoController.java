@@ -1,19 +1,23 @@
 package jprieto.mastermind.controllers;
 
 import jprieto.mastermind.models.Session;
+import jprieto.mastermind.models.SessionImplementation;
 
-public class RedoController extends UseCaseController {
+public class RedoController extends Controller {
 
-  RedoController(Session session) {
+  private SessionImplementation sessionImplementation;
+	
+  public RedoController(Session session) {
     super(session);
+    this.sessionImplementation = ((SessionImplementation) this.session);
   }
 
-  void redo() {
-    this.session.redo();
+  public void redo() {
+    this.sessionImplementation.redo();
   }
 
-  boolean redoable() {
-    return this.session.redoable();
+  public boolean redoable() {
+    return this.sessionImplementation.redoable();
   }
 
 }

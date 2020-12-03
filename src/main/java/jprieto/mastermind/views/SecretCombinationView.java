@@ -1,17 +1,19 @@
 package jprieto.mastermind.views;
 
-import jprieto.mastermind.controllers.UseCaseController;
+import jprieto.mastermind.controllers.Controller;
+
+
 import jprieto.utils.WithConsoleView;
 
 class SecretCombinationView extends WithConsoleView{
 	
-	private UseCaseController controller;
+	private Controller controller;
 	
-	SecretCombinationView(UseCaseController controller) {
+	SecretCombinationView(Controller controller) {
 		super();
 		this.controller = controller;
 	}
-	
+
 	void writeln() {
 		for (int i = 0; i < this.controller.getWidth(); i++) {
 			this.console.write(MessageView.SECRET.getMessage());

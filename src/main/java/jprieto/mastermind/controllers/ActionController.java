@@ -6,19 +6,23 @@ import jprieto.mastermind.models.Combination;
 import jprieto.mastermind.models.Session;
 import jprieto.mastermind.types.Color;
 import jprieto.mastermind.types.Error;
+import jprieto.mastermind.models.SessionImplementation;
 
-public class ActionController extends UseCaseController {
+public class ActionController extends Controller {
+	
+	private SessionImplementation sessionImplementation;
 
 	public ActionController(Session session) {
     super(session);
+    this.sessionImplementation = ((SessionImplementation) this.session);
   }
   
   public boolean isLooser() {
-		return this.session.isLooser();
+		return this.sessionImplementation.isLooser();
 	}
 
 	public boolean isWinner() {
-		return this.session.isWinner();
+		return this.sessionImplementation.isWinner();
 	}
 
 	public Error addProposedCombination(List<Color> colors) {
@@ -39,28 +43,33 @@ public class ActionController extends UseCaseController {
 			}
 		}
 		if (error == null){
-			this.session.addProposedCombination(colors);
-			if (this.session.isWinner() || this.session.isLooser()) {
-				this.session.next();
+			this.sessionImplementation.addProposedCombination(colors);
+			if (this.sessionImplementation.isWinner() || this.sessionImplementation.isLooser()) {
+				this.sessionImplementation.next();
 			}
 		}
 		return error;	
 	}
 
 	public int getAttempts() {
-		return this.session.getAttempts();
+		return this.sessionImplementation.getAttempts();
 	}
 
 	public List<Color> getColors(int position) {
-		return this.session.getColors(position);
+		return this.sessionImplementation.getColors(position);
 	}
 
 	public int getBlacks(int position) {
-		return this.session.getBlacks(position);
+		return this.sessionImplementation.getBlacks(position);
 	}
 
 	public int getWhites(int position) {
-		return this.session.getWhites(position);
+		return this.sessionImplementation.getWhites(position);
+	}
+	
+	public int getWidth()
+	{
+		return this.sessionImplementation.getWidth();
 	}
 
 }
