@@ -1,7 +1,6 @@
-package jprieto.mastermind.views.console;
+package jprieto.mastermind.views;
 
 import jprieto.mastermind.controllers.ResumeController;
-import jprieto.mastermind.views.MessageView;
 import jprieto.utils.YesNoDialog;
 
 class ResumeView {

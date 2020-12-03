@@ -1,7 +1,6 @@
-package jprieto.mastermind.views.console;
+package jprieto.mastermind.views;
 
 import jprieto.mastermind.controllers.StartController;
-import jprieto.mastermind.views.MessageView;
 import jprieto.utils.WithConsoleView;
 
 class StartView extends WithConsoleView{

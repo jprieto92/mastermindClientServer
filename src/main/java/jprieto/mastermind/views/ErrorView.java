@@ -3,7 +3,7 @@ package jprieto.mastermind.views;
 import jprieto.mastermind.types.Error;
 import jprieto.utils.WithConsoleView;
 
-public class ErrorView extends WithConsoleView{
+class ErrorView extends WithConsoleView {
 
 	public static final String[] MESSAGES = { 
 			"Repeated colors",
@@ -20,4 +20,8 @@ public class ErrorView extends WithConsoleView{
 		return ErrorView.MESSAGES[this.error.ordinal()];
 	}
 	
+	void writeln() {
+		this.console.writeln(ErrorView.MESSAGES[this.error.ordinal()]);
+	}	
+
 }

@@ -1,11 +1,10 @@
-package jprieto.mastermind.views.console;
+package jprieto.mastermind.views;
 
 import java.util.List;
 
 import jprieto.mastermind.controllers.PlayController;
 import jprieto.mastermind.types.Color;
 import jprieto.mastermind.types.Error;
-import jprieto.mastermind.views.MessageView;
 
 class PlayCommand extends Command {
 

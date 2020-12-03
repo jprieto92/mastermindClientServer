@@ -1,4 +1,4 @@
-package jprieto.mastermind.views.console;
+package jprieto.mastermind.views;
 
 import jprieto.mastermind.controllers.PlayController;
 

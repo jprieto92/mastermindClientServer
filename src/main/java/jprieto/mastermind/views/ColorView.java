@@ -3,8 +3,8 @@ package jprieto.mastermind.views;
 import jprieto.mastermind.types.Color;
 import jprieto.utils.WithConsoleView;
 
-public class ColorView extends WithConsoleView{
-	
+class ColorView extends WithConsoleView {
+
 	public static final char[] INITIALS = {'r', 'b', 'y', 'g', 'o', 'p'};
 
 	protected Color color;
@@ -32,6 +32,10 @@ public class ColorView extends WithConsoleView{
 			}
 		}
 		return null;
+	}
+	
+	void write() {
+		this.console.write(ColorView.INITIALS[this.color.ordinal()]);
 	}
 
 }
