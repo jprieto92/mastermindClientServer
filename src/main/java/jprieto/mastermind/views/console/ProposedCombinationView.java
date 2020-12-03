@@ -6,9 +6,9 @@ import java.util.List;
 import jprieto.mastermind.controllers.PlayController;
 import jprieto.mastermind.types.Color;
 import jprieto.mastermind.views.MessageView;
-import jprieto.utils.Console;
+import jprieto.utils.WithConsoleView;
 
-class ProposedCombinationView {
+class ProposedCombinationView extends WithConsoleView{
 	
 	private PlayController playController;
 	
@@ -23,7 +23,7 @@ class ProposedCombinationView {
 	}
 
 	List<Color> read() {
-		String characters = Console.instance().readString(MessageView.PROPOSED_COMBINATION.getMessage());
+		String characters = this.console.readString(MessageView.PROPOSED_COMBINATION.getMessage());
 		List<Color> colors = new ArrayList<Color>();
 		for (int i=0; i<characters.length(); i++) {
 			colors.add(ColorView.getInstance(characters.charAt(i)));

@@ -1,7 +1,6 @@
 package jprieto.mastermind.views.console;
 
 import jprieto.mastermind.types.Color;
-import jprieto.utils.Console;
 
 class ColorView extends jprieto.mastermind.views.ColorView {
 
@@ -10,7 +9,7 @@ class ColorView extends jprieto.mastermind.views.ColorView {
 	}
 	
 	void write() {
-		Console.instance().write(ColorView.INITIALS[this.color.ordinal()]);
+		this.console.write(ColorView.INITIALS[this.color.ordinal()]);
 	}
 
 }

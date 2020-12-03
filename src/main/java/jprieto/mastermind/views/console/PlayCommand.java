@@ -6,7 +6,6 @@ import jprieto.mastermind.controllers.PlayController;
 import jprieto.mastermind.types.Color;
 import jprieto.mastermind.types.Error;
 import jprieto.mastermind.views.MessageView;
-import jprieto.utils.Console;
 
 class PlayCommand extends Command {
 
@@ -28,7 +27,7 @@ class PlayCommand extends Command {
 				new ErrorView(error).writeln();
 			}
 		} while (error != null);
-		Console.instance().writeln();
+		this.console.writeln();
 		new AttemptsView(playController).writeln();
 		new SecretCombinationView(playController).writeln();
 		for (int i = 0; i < playController.getAttempts(); i++) {
@@ -36,9 +35,9 @@ class PlayCommand extends Command {
 			new ResultView(playController).writeln(i);
 		}
 		if (playController.isWinner()) {
-			Console.instance().writeln(MessageView.WINNER.getMessage());
+			this.console.writeln(MessageView.WINNER.getMessage());
 		} else if (playController.isLooser()) {
-			Console.instance().writeln(MessageView.LOOSER.getMessage());
+			this.console.writeln(MessageView.LOOSER.getMessage());
 		}
   }
 

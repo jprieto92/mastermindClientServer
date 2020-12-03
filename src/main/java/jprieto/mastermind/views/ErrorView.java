@@ -1,8 +1,9 @@
 package jprieto.mastermind.views;
 
 import jprieto.mastermind.types.Error;
+import jprieto.utils.WithConsoleView;
 
-public class ErrorView {
+public class ErrorView extends WithConsoleView{
 
 	public static final String[] MESSAGES = { 
 			"Repeated colors",

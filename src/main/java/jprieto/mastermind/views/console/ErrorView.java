@@ -10,7 +10,7 @@ class ErrorView extends jprieto.mastermind.views.ErrorView {
 	}
 	
 	void writeln() {
-		Console.instance().writeln(ErrorView.MESSAGES[this.error.ordinal()]);
+		this.console.writeln(ErrorView.MESSAGES[this.error.ordinal()]);
 	}	
 
 }

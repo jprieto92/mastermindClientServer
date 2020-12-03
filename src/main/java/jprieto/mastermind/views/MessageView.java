@@ -1,7 +1,5 @@
 package jprieto.mastermind.views;
 
-import jprieto.utils.Console;
-
 public enum MessageView {
 	ATTEMPTS("#attempts attempt(s): "),
 	SECRET("*"),
@@ -24,13 +22,4 @@ public enum MessageView {
 	public String getMessage() {
 		return this.message;
 	}
-	
-	public void write() {
-		Console.instance().write(this.message);
-	}
-
-	public void writeln() {
-		Console.instance().writeln(this.message);
-	}
-
 }

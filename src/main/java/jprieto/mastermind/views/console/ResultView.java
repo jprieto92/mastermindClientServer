@@ -2,9 +2,9 @@ package jprieto.mastermind.views.console;
 
 import jprieto.mastermind.controllers.PlayController;
 import jprieto.mastermind.views.MessageView;
-import jprieto.utils.Console;
+import jprieto.utils.WithConsoleView;
 
-class ResultView {
+class ResultView extends WithConsoleView{
 	
 	private PlayController playController;
 	
@@ -13,7 +13,7 @@ class ResultView {
 	}
 
 	void writeln(int i) {
-		Console.instance().writeln(MessageView.RESULT.getMessage()
+		this.console.writeln(MessageView.RESULT.getMessage()
 				.replaceFirst("#blacks", "" + this.playController.getBlacks(i))
 				.replaceFirst("#whites", "" + this.playController.getWhites(i)));
 	}

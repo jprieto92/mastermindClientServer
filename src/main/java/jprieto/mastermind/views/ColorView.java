@@ -1,8 +1,9 @@
 package jprieto.mastermind.views;
 
 import jprieto.mastermind.types.Color;
+import jprieto.utils.WithConsoleView;
 
-public class ColorView {
+public class ColorView extends WithConsoleView{
 	
 	public static final char[] INITIALS = {'r', 'b', 'y', 'g', 'o', 'p'};
 

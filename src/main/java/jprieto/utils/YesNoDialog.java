@@ -1,6 +1,6 @@
 package jprieto.utils;
 
-public class YesNoDialog {
+public class YesNoDialog extends WithConsoleView{
 
 	private static final char AFIRMATIVE = 'y';
 
@@ -16,10 +16,10 @@ public class YesNoDialog {
 		char answer;
 		boolean ok;
 		do {
-			answer = Console.instance().readChar(title + YesNoDialog.QUESTION);
+			answer = this.console.readChar(title + YesNoDialog.QUESTION);
 			ok = YesNoDialog.isAfirmative(answer) || YesNoDialog.isNegative(answer);
 			if (!ok) {
-				Console.instance().writeln(YesNoDialog.MESSAGE);
+				this.console.writeln(YesNoDialog.MESSAGE);
 			}
 		} while (!ok);
 		return YesNoDialog.isAfirmative(answer);

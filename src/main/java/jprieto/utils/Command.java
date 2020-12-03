@@ -1,6 +1,6 @@
 package jprieto.utils;
 
-public abstract class Command {
+public abstract class Command extends WithConsoleView{
 
   protected String title;
 
