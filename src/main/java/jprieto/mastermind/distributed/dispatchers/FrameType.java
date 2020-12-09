@@ -1,13 +1,9 @@
 package jprieto.mastermind.distributed.dispatchers;
 
 public enum FrameType { 
-	START,
 	STATE,
-	UNDO, 
-	REDO, 
-	UNDOABLE, 
-	REDOABLE,
-	CLOSE,
+	START,
+	START_WIDTH,
 	WINNER,
 	LOOSER,
 	PROPOSE_COMBINATION,
@@ -15,9 +11,14 @@ public enum FrameType {
 	COLORS,
 	BLACKS,
 	WHITES,
+	UNDO, 
+	REDO, 
+	UNDOABLE, 
+	REDOABLE,
+	PLAY_WIDTH,
+	CLOSE,
 	NEXT_STATE,
-	NEW_GAME,
-	WIDTH;
+	NEW_GAME;
 
 	public static FrameType parser(String string) {
 		for(FrameType frameType : FrameType.values()) {

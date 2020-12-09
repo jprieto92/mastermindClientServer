@@ -1,7 +1,7 @@
 # MasterMind Final Practice
 
 * **Author**: Javier Prieto Cepeda - javier.prieto.cepeda@alumnos.upm.es
-* **Version**: Mastermind game implementation with double dispatching
+* **Version**: Mastermind game implementation with Standalone and Client/Server versions.
 <p align="center">
 <img width="300" height="300" src="docs/images/Dibujo.jpg">
 </p>
@@ -20,7 +20,7 @@ The structure of this repository is:
 * Wiki - Youtube: https://www.youtube.com/watch?v=2-hTeg2M6GQ
 * Functionality: Basic
 * Interface: Text
-* Distribution: Standalone
+* Distribution: Standalone + Client/Server
 * Persistence: No
 
 # Project Design

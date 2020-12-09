@@ -41,5 +41,11 @@ class GameRegistry {
   boolean isRedoable() {
     return this.firstPrevious >= 1;
   }
+  
+  void reset() {
+		this.mementos = new ArrayList<GameMemento>();
+		this.mementos.add(firstPrevious, this.game.createMemento());
+		this.firstPrevious = 0;
+  }
 
 }

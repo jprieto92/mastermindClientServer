@@ -19,6 +19,9 @@ public class SessionImplementation implements Session {
   
   public void addProposedCombination(List<Color> colors) {
 		this.game.addProposedCombination(colors);
+		if (this.isWinner() || this.isLooser()) {
+			this.next();
+		}
 		this.registry.register();
 	}
 
@@ -34,9 +37,10 @@ public class SessionImplementation implements Session {
     this.state.next();
   }
 
-  public void reset() {
-    this.game.clear();
+  public void newGame() {
+    this.game.newGame();
     this.state.reset();
+    this.registry.reset();
   }
 
   public boolean isLooser() {

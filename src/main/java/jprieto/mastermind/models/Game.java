@@ -56,5 +56,10 @@ public class Game {
 	public void set(GameMemento memento) {
        this.board = memento.getBoard().copy();
     }
+	
+	public void newGame()
+	{
+		this.board = new Board();
+	}
 
 }

@@ -21,7 +21,7 @@ public class SessionProxy implements Session {
 	
 	public int getWidth()
 	{
-		this.tcpip.send(FrameType.WIDTH.name());
+		this.tcpip.send(FrameType.START_WIDTH.name());
 		return this.tcpip.receiveInt();
 	}
 

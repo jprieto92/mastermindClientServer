@@ -27,7 +27,7 @@ public class ActionController extends Controller {
 
 	public Error addProposedCombination(List<Color> colors) {
 		Error error = null;
-		if (colors.size() != Combination.getWidth()) {
+		if (colors.size() != this.sessionImplementation.getWidth()) {
 			error = Error.WRONG_LENGTH;
 		} else {
 			for (int i = 0; i < colors.size(); i++) {
@@ -44,11 +44,8 @@ public class ActionController extends Controller {
 		}
 		if (error == null){
 			this.sessionImplementation.addProposedCombination(colors);
-			if (this.sessionImplementation.isWinner() || this.sessionImplementation.isLooser()) {
-				this.sessionImplementation.next();
-			}
 		}
-		return error;	
+		return error;
 	}
 
 	public int getAttempts() {

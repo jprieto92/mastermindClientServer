@@ -9,6 +9,7 @@ import jprieto.mastermind.models.Session;
 import jprieto.mastermind.types.Error;
 import jprieto.mastermind.distributed.dispatchers.FrameType;
 import jprieto.mastermind.distributed.dispatchers.TCPIP;
+import jprieto.utils.ColorUtils;
 
 
 
@@ -36,6 +37,12 @@ public class PlayControllerProxy extends PlayController {
 	@Override
 	public Error addProposedCombination(List<Color> colors) {
 		this.tcpip.send(FrameType.PROPOSE_COMBINATION.name());
+		String proposedCombination = "";
+		for(int i = 0; i< colors.size(); i++)
+		{
+			proposedCombination += ColorUtils.INITIALS[colors.get(i).ordinal()];
+		}
+		this.tcpip.send(proposedCombination);
 		return this.tcpip.receiveError();
 	}
 
@@ -47,11 +54,9 @@ public class PlayControllerProxy extends PlayController {
 
 	@Override
 	public List<Color> getColors(int position) {
-		List<Color> colors = new ArrayList<Color>();
 		this.tcpip.send(FrameType.COLORS.name());
-		// send position
-		// fill new List<Color>  receiving int
-		return colors;
+		this.tcpip.send(position);
+		return this.tcpip.receiveProposedCombination();
 	}
 
 	@Override
@@ -93,7 +98,7 @@ public class PlayControllerProxy extends PlayController {
 	@Override
 	public int getWidth()
 	{
-		this.tcpip.send(FrameType.WIDTH.name());
+		this.tcpip.send(FrameType.START_WIDTH.name());
 		return this.tcpip.receiveInt();
 	}
 }

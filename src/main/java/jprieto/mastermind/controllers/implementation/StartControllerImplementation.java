@@ -13,10 +13,12 @@ public class StartControllerImplementation extends StartController {
     this.sessionImplementation = ((SessionImplementation) this.session);
   }
 
+  @Override
   public void initGame() {
     this.sessionImplementation.next();
   }
   
+  @Override
   public int getWidth()
   {
 	  return this.sessionImplementation.getWidth();

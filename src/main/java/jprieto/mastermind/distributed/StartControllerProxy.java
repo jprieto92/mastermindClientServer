@@ -18,5 +18,11 @@ public class StartControllerProxy extends StartController {
 	public void initGame() {
 		this.tcpip.send(FrameType.START.name());
 	}
+	
+	@Override
+	public int getWidth() {
+		this.tcpip.send(FrameType.START_WIDTH.name());
+		return this.tcpip.receiveInt();
+	}
 
 }

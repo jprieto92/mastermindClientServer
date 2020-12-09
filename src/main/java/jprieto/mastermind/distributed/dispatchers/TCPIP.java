@@ -3,8 +3,12 @@ package jprieto.mastermind.distributed.dispatchers;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 import jprieto.mastermind.types.Error;
+import jprieto.utils.ColorUtils;
+import jprieto.mastermind.types.Color;
 
 public class TCPIP extends jprieto.utils.TCPIP {
 
@@ -49,6 +53,11 @@ public class TCPIP extends jprieto.utils.TCPIP {
 			this.send(value.name());
 		}
 	}
+	
+	public void send() {
+		this.send("null");
+	}
+	
 
 	public Error receiveError() {
 		String error = this.receiveLine();
@@ -56,6 +65,16 @@ public class TCPIP extends jprieto.utils.TCPIP {
 			return null;
 		}
 		return Error.valueOf(error);
+	}
+
+	
+	public List<Color> receiveProposedCombination() {
+		String characters = this.receiveLine();
+		List<Color> colors = new ArrayList<Color>();
+		for (int i=0; i<characters.length(); i++) {
+			colors.add(ColorUtils.getInstance(characters.charAt(i)));
+		}
+		return colors;
 	}
 
 	public void close() {

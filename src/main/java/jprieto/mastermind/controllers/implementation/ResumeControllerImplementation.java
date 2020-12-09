@@ -13,9 +13,10 @@ public class ResumeControllerImplementation extends ResumeController {
     this.sessionImplementation = ((SessionImplementation) this.session);
   }
 
+  @Override
   public void resume(boolean isResumed) {
     if (isResumed){
-      this.sessionImplementation.reset();
+      this.sessionImplementation.newGame();
     } else {
       this.sessionImplementation.next();
     }
