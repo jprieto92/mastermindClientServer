@@ -1,140 +1,147 @@
 @startuml
-class  mastermind.models.Board{
-- {static} final int MAX_LONG
-- SecretCombination secretCombination
-- List<ProposedCombination> proposedCombination
-- List<Result> results
-- int attemps
 
-+ Board()
-+ reset() : void
-+ addProposedCombination(ProposedCombination proposedCombination) : void
-+ isLooser() : boolean
-+ isWinner() : boolean
-+ getAttemps() : int
-+ getProposedCombination(int position) : ProposedCombination
-+ getResult(int position) : Result
+class mastermind.models.Board [[java:jprieto.mastermind.models.Board]] {
+	-SecretCombination secretCombination
+	-List<ProposedCombination> proposedCombinations
+	-List<Result> results
+	-int attempts
+	+Board()
+	-Board(Board board)
+	+Board copy()
+	+void clear()
+	+void addProposedCombination(List<Color> colors)
+	+int getAttempts()
+	+Result getResult(int position)
+	+ProposedCombination getProposedCombination(int position)
+	+SecretCombination getSecretCombination()
+	+List<Color> getColors(int position)
+	+int getBlacks(int position)
+	+int getWhites(int position)
+	+int getWidth()
+	+void putSecretCombination(SecretCombination secretCombination)
+	+void putProposedCombinations(int attempts, List<ProposedCombination> proposedCombinations)
+	+void putResults(List<Result> results)
 }
-mastermind.models.Board *-down-> mastermind.models.ProposedCombination
 mastermind.models.Board *-down-> mastermind.models.SecretCombination
+mastermind.models.Board *-down-> mastermind.models.ProposedCombination
 mastermind.models.Board *-down-> mastermind.models.Result
-mastermind.models.Board ..> java.util.ArrayList
-'mastermind.controllers.ControllerVisitor ..> mastermind.controllers.StartController
-'mastermind.controllers.Logic *-down-> mastermind.models.Game
-'mastermind.controllers.UseCaseController <|-down- mastermind.controllers.StartController
 
-enum mastermind.models.Color{
-+ RED : Color
-+ BLUE : Color
-+ YELLOW : Color
-+ GREEN : Color
-+ ORANGE : Color
-+ PURPLE : Color
-
-+ {static} length() : int
+abstract class mastermind.models.Combination [[java:jprieto.mastermind.models.Combination]] {
+	-{static}int WIDTH
+	#List<Color> colors
+	#Combination()
+	+{static}int getWidth()
+	+{abstract}Combination copy()
 }
+mastermind.models.Combination *-down-> mastermind.types.Color
 
-abstract class mastermind.models.Combination{
-- {static} final int WIDTH = 4
-# List<Color> colors
-
-# Combination()
-+ {static} getWidth() : int
-}
-mastermind.models.Combination *-down-> mastermind.models.Color
-mastermind.models.Combination ..> java.util.ArrayList
-
-enum mastermind.models.Error{
-+ DUPLICATED : Error
-+ WRONG_CHARACTERS : Error
-+ WRONG_LENGTH : Error
-+ NULL : Error
-
-+ isNull() : boolean
-}
-
-class  mastermind.models.Game{
-- Board board
-- Turn turn
-
-+ Game()
-+ reset() : void
-+ setUser() : void
-+ isMaxAttempsReached() : boolean
-+ addProposedCombination(ProposedCombination proposedCombination) : void
-+ isMasterMind() : boolean
-+ getAttemps() : int
-+ getResult(int position) : Result
-+ getProposedCombination(int position) : ProposedCombination
+class mastermind.models.Game [[java:jprieto.mastermind.models.Game]] {
+	-{static}int MAX_LONG
+	-Board board
+	+Game()
+	+void clear()
+	+void addProposedCombination(List<Color> colors)
+	+boolean isLooser()
+	+boolean isWinner()
+	+int getAttempts()
+	+List<Color> getColors(int position)
+	+int getBlacks(int position)
+	+int getWhites(int position)
+	+int getWidth()
+	+GameMemento createMemento()
+	+void set(GameMemento memento)
+	+void newGame()
 }
 mastermind.models.Game *-down-> mastermind.models.Board
-mastermind.models.Game *-down-> mastermind.models.Turn
 
-class  mastermind.models.Player{
-- Board board
-
-+ Player(Board board)
-+ addProposedCombination(ProposedCombination proposedCombination) : void
+class mastermind.models.GameMemento [[java:jprieto.mastermind.models.GameMemento]] {
+	-Board board
+	~GameMemento(Board board)
+	~Board getBoard()
 }
-mastermind.models.Player *-down-> mastermind.models.Board
+mastermind.models.GameMemento *-down-> mastermind.models.Board
 
-class  mastermind.models.ProposedCombination{
-+ Contains(Color color, int position) : boolean
-+ Contains(Color color) : boolean
-+ getColors() : List<Color>
-+ setCombination(String characters) : Error
+class mastermind.models.GameRegistry [[java:jprieto.mastermind.models.GameRegistry]] {
+	-List<GameMemento> mementos
+	-Game game
+	-int firstPrevious
+	~GameRegistry(Game game)
+	~void register()
+	~void undo()
+	~void redo()
+	~boolean isUndoable()
+	~boolean isRedoable()
+	~void reset()
 }
-mastermind.models.ProposedCombination ..> mastermind.models.Color
-mastermind.models.ProposedCombination ..> java.util.ArrayList
-mastermind.models.Combination <|-down- mastermind.models.ProposedCombination
+mastermind.models.GameRegistry *-down-> mastermind.models.GameMemento
+mastermind.models.GameRegistry *-down-> mastermind.models.Game
 
-class  mastermind.models.Result{
-- int blacks
-- int whites
-
-+ Result(int blacks, int whites)
-+ isWinner() : boolean
-+ getBlacks() : int
-+ getWhites() : int
+class mastermind.models.ProposedCombination [[java:jprieto.mastermind.models.ProposedCombination]] {
+	~ProposedCombination(List<Color> colors)
+	-ProposedCombination(ProposedCombination proposedCombination)
+	~boolean contains(Color color, int position)
+	~boolean contains(Color color)
+	+ProposedCombination copy()
 }
-mastermind.models.Result ..> mastermind.models.Combination
+mastermind.models.Combination <|-- mastermind.models.ProposedCombination
 
-class  mastermind.models.SecretCombination{
-+ SecretCombination()
-+ getResult(ProposedCombination) : Result
+class mastermind.models.Result [[java:jprieto.mastermind.models.Result]] {
+	-int blacks
+	-int whites
+	~Result(int blacks, int whites)
+	-Result(Result result)
+	~boolean isWinner()
+	~int getBlacks()
+	~int getWhites()
+	~Result copy()
 }
-mastermind.models.SecretCombination ..> mastermind.models.Color
-mastermind.models.ProposedCombination ..> java.util.Collections
-mastermind.models.ProposedCombination ..> java.util.Random
-mastermind.models.Combination <|-down- mastermind.models.SecretCombination
 
-class  mastermind.models.State{
-- StateValue stateValue
+class mastermind.models.SecretCombination [[java:jprieto.mastermind.models.SecretCombination]] {
+	~SecretCombination()
+	-SecretCombination(SecretCombination secretCombination)
+	~Result getResult(ProposedCombination proposedCombination)
+	+SecretCombination copy()
+}
+mastermind.models.Combination <|-- mastermind.models.SecretCombination
 
-+ State()
-+ reset() : void
-+ next() : void
-+ getValueState() : StateValue
+interface mastermind.models.Session [[java:jprieto.mastermind.models.Session]] {
+	StateValue getValueState()
+	int getWidth()
+}
+
+class mastermind.models.SessionImplementation [[java:jprieto.mastermind.models.SessionImplementation]] {
+	-Game game
+	-GameRegistry registry
+	-State state
+	+SessionImplementation()
+	+void addProposedCombination(List<Color> colors)
+	+StateValue getValueState()
+	+int getWidth()
+	+void next()
+	+void newGame()
+	+boolean isLooser()
+	+boolean isWinner()
+	+void undo()
+	+boolean undoable()
+	+void redo()
+	+boolean redoable()
+	+int getAttempts()
+	+List<Color> getColors(int position)
+	+int getBlacks(int position)
+	+int getWhites(int position)
+}
+mastermind.models.SessionImplementation *-down-> mastermind.models.Game
+mastermind.models.SessionImplementation *-down-> mastermind.models.GameRegistry
+mastermind.models.SessionImplementation *-down-> mastermind.models.State
+mastermind.models.Session <|.. mastermind.models.SessionImplementation
+
+class mastermind.models.State [[java:jprieto.mastermind.models.State]] {
+	-StateValue stateValue
+	+State()
+	+void next()
+	+void reset()
+	+StateValue getValueState()
 }
 mastermind.models.State *-down-> mastermind.models.StateValue
-
-enum mastermind.models.StateValue{
-+ INITIAL : StateValue
-+ IN_GAME : StateValue
-+ RESUME : StateValue
-+ EXIT : StateValue
-}
-
-class  mastermind.models.Turn{
-- Player player
-- Board board
-
-+ Turn(Board board)
-+ setUser() : void
-+ addProposedCombination(ProposedCombination proposedCombination) : void
-- getPlayer() : player
-}
-mastermind.models.Turn *-down-> mastermind.models.Player
-mastermind.models.Turn *-down-> mastermind.models.Board
 
 @enduml

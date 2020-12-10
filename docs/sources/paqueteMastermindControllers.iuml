@@ -1,64 +1,97 @@
 @startuml
-interface  mastermind.controllers.ControllerVisitor{
-+ visit(StartController startController) : void
-+ visit(PlayController playController) : void
-+ visit(ResumeController resumeController) : void
+
+abstract class mastermind.controllers.AcceptorController [[java:jprieto.mastermind.controllers.AcceptorController]] {
+	~AcceptorController(Session session)
+	+{abstract}void accept(ControllerVisitor controllersVisitor)
 }
-mastermind.controllers.ControllerVisitor ..> mastermind.controllers.StartController
-mastermind.controllers.ControllerVisitor ..> mastermind.controllers.PlayController
-mastermind.controllers.ControllerVisitor ..> mastermind.controllers.ResumeController
+mastermind.controllers.Controller <|-- mastermind.controllers.AcceptorController
 
-class mastermind.controllers.Logic{
-- Game Game
-- State state
-- Map<StateValue, UseCaseController> controllers
-
-+ Logic()
-+ getController() : UseCaseController
+class mastermind.controllers.ActionController [[java:jprieto.mastermind.controllers.ActionController]] {
+	-SessionImplementation sessionImplementation
+	+ActionController(Session session)
+	+boolean isLooser()
+	+boolean isWinner()
+	+Error addProposedCombination(List<Color> colors)
+	+int getAttempts()
+	+List<Color> getColors(int position)
+	+int getBlacks(int position)
+	+int getWhites(int position)
+	+int getWidth()
 }
-mastermind.controllers.Logic *-down-> mastermind.models.Game
-mastermind.controllers.Logic *-down-> mastermind.models.State
-mastermind.controllers.Logic *-down-> java.util.HashMap
+mastermind.controllers.Controller <|-- mastermind.controllers.ActionController
+mastermind.controllers.ActionController *-down-> mastermind.models.SessionImplementation
 
-abstract class mastermind.controllers.UseCaseController{
-# Game game
-# State state
-
-+ UseCaseController(Game game, State state)
-+ next : void
-+ {abstract} accept(ControllerVisitor controllerVisitor) : void
+abstract class mastermind.controllers.Controller [[java:jprieto.mastermind.controllers.Controller]] {
+	#Session session
+	~Controller(Session session)
+	+StateValue getValueState()
+	+int getWidth()
 }
-mastermind.controllers.UseCaseController *-down-> mastermind.models.Game
-mastermind.controllers.UseCaseController *-down-> mastermind.models.State
-mastermind.controllers.UseCaseController ..> mastermind.controllers.ControllerVisitor
-class mastermind.controllers.StartController{
+mastermind.controllers.Controller *-down-> mastermind.models.Session
 
-+ StartController(Game game, State state)
-+ setUser() : void
-+ accept(ControllerVisitor controllerVisitor) : void
+interface mastermind.controllers.ControllerVisitor [[java:jprieto.mastermind.controllers.ControllerVisitor]] {
+	void visit(StartController startController)
+	void visit(PlayController playController)
+	void visit(ResumeController resumeController)
 }
-mastermind.controllers.UseCaseController <|-down- mastermind.controllers.StartController
 
-class mastermind.controllers.PlayController{
-
-+ PlayController(Game game, State state)
-+ isMaxAttempsReached() : boolean
-+ isMasterMind() : boolean
-+ getAttemps() : int
-+ getResult(int position) : Result
-+ getProposedCombination(int position) : ProposedCombination
-+ proposeCombination() : void
-+ accept(ControllerVisitor controllerVisitor) : void
+class mastermind.controllers.Logic [[java:jprieto.mastermind.controllers.Logic]] {
+	#Session session
+	#Map<StateValue,AcceptorController> controllers
+	#Logic()
+	+AcceptorController getController()
 }
-mastermind.controllers.UseCaseController <|-down- mastermind.controllers.PlayController
+mastermind.controllers.Logic *-down-> mastermind.models.Session
+mastermind.controllers.Logic *-down-> mastermind.types.StateValue
+mastermind.controllers.Logic *-down-> mastermind.controllers.AcceptorController
 
-class mastermind.controllers.ResumeController{
-
-+ ResumeController(Game game, State state)
-+ resume() : void
-+ accept(ControllerVisitor controllerVisitor) : void
+abstract class mastermind.controllers.PlayController [[java:jprieto.mastermind.controllers.PlayController]] {
+	+PlayController(Session session)
+	+{abstract}boolean isLooser()
+	+{abstract}boolean isWinner()
+	+{abstract}Error addProposedCombination(List<Color> colors)
+	+{abstract}int getAttempts()
+	+{abstract}List<Color> getColors(int position)
+	+{abstract}int getBlacks(int position)
+	+{abstract}int getWhites(int position)
+	+{abstract}void undo()
+	+{abstract}boolean undoable()
+	+{abstract}void redo()
+	+{abstract}boolean redoable()
+	+{abstract}int getWidth()
+	+void accept(ControllerVisitor controllersVisitor)
 }
-mastermind.controllers.UseCaseController <|-down- mastermind.controllers.ResumeController
+mastermind.controllers.AcceptorController <|-- mastermind.controllers.PlayController
 
+class mastermind.controllers.RedoController [[java:jprieto.mastermind.controllers.RedoController]] {
+	-SessionImplementation sessionImplementation
+	+RedoController(Session session)
+	+void redo()
+	+boolean redoable()
+}
+mastermind.controllers.Controller <|-- mastermind.controllers.RedoController
+
+abstract class mastermind.controllers.ResumeController [[java:jprieto.mastermind.controllers.ResumeController]] {
+	+ResumeController(Session session)
+	+{abstract}void resume(boolean isResumed)
+	+void accept(ControllerVisitor controllerVisitor)
+}
+mastermind.controllers.AcceptorController <|-- mastermind.controllers.ResumeController
+
+abstract class mastermind.controllers.StartController [[java:jprieto.mastermind.controllers.StartController]] {
+	+StartController(Session session)
+	+{abstract}void initGame()
+	+void accept(ControllerVisitor controllerVisitor)
+}
+mastermind.controllers.AcceptorController <|-- mastermind.controllers.StartController
+
+class mastermind.controllers.UndoController [[java:jprieto.mastermind.controllers.UndoController]] {
+	-SessionImplementation sessionImplementation
+	+UndoController(Session session)
+	+void undo()
+	+boolean undoable()
+}
+mastermind.controllers.Controller <|-- mastermind.controllers.UndoController
+mastermind.controllers.UndoController *-down-> mastermind.models.SessionImplementation
 
 @enduml

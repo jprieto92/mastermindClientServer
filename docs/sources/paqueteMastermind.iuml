@@ -1,23 +1,18 @@
 @startuml
-class  mastermind.ConsoleMasterMind{
-+ {static} main(String[]): void
-# createView(): View
+abstract class mastermind.Mastermind{
+	-Logic logic
+	-View view
+	#Mastermind()
+	#{abstract}Logic createLogic()
+	#void play()
 }
-mastermind.MasterMind <|-down- mastermind.ConsoleMasterMind
+mastermind.Mastermind <|-- mastermind.MastermindStandalone
+mastermind.Mastermind --> mastermind.views.View
+mastermind.Mastermind *-down-> mastermind.controllers.Logic
 
-class  mastermind.GraphicsMasterMind{
-+ {static} main(String[]): void
-# createView(): View
+class mastermind.MastermindStandalone{
+	+{static}void main(String[] args)
+	#LogicImplementation createLogic()
 }
-mastermind.MasterMind <|-down- mastermind.GraphicsMasterMind
 
-class  mastermind.MasterMind{
-- logic: Logic
-- view: View
-# MasterMind()
-# {abstract} createView(): View
-# play(): void
-}
-mastermind.MasterMind --> mastermind.views.View
-mastermind.MasterMind *-down-> mastermind.controllers.Logic
 @enduml

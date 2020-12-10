@@ -1,0 +1,56 @@
+@startuml
+
+class mastermind.controllers.implementation.LogicImplementation [[java:jprieto.mastermind.controllers.implementation.LogicImplementation]] {
+	#StartControllerImplementation startControllerImplementation
+	#PlayControllerImplementation playControllerImplementation
+	#ResumeControllerImplementation resumeControllerImplementation
+	+LogicImplementation()
+}
+mastermind.controllers.implementation.LogicImplementation *-down-> mastermind.controllers.implementation.StartControllerImplementation
+mastermind.controllers.implementation.LogicImplementation *-down-> mastermind.controllers.implementation.PlayControllerImplementation
+mastermind.controllers.implementation.LogicImplementation *-down-> mastermind.controllers.implementation.ResumeControllerImplementation
+mastermind.controllers.Logic <|-- mastermind.controllers.implementation.LogicImplementation
+
+class mastermind.controllers.implementation.PlayControllerImplementation [[java:jprieto.mastermind.controllers.implementation.PlayControllerImplementation]] {
+	-ActionController actionController
+	-UndoController undoController
+	-RedoController redoController
+	+PlayControllerImplementation(Session session)
+	+boolean isLooser()
+	+boolean isWinner()
+	+Error addProposedCombination(List<Color> colors)
+	+int getAttempts()
+	+List<Color> getColors(int position)
+	+int getBlacks(int position)
+	+int getWhites(int position)
+	+void undo()
+	+boolean undoable()
+	+void redo()
+	+boolean redoable()
+	+int getWidth()
+}
+mastermind.controllers.PlayController <|-- mastermind.controllers.implementation.PlayControllerImplementation
+mastermind.controllers.implementation.PlayControllerImplementation *-down-> mastermind.controllers.ActionController
+mastermind.controllers.implementation.PlayControllerImplementation *-down-> mastermind.controllers.UndoController
+mastermind.controllers.implementation.PlayControllerImplementation *-down-> mastermind.controllers.RedoController
+
+class mastermind.controllers.implementation.ResumeControllerImplementation [[java:jprieto.mastermind.controllers.implementation.ResumeControllerImplementation]] {
+	-SessionImplementation sessionImplementation
+	+ResumeControllerImplementation(Session session)
+	+void resume(boolean isResumed)
+}
+mastermind.controllers.ResumeController <|-- mastermind.controllers.implementation.ResumeControllerImplementation
+mastermind.controllers.implementation.ResumeControllerImplementation *-down-> mastermind.models.SessionImplementation
+
+class mastermind.controllers.implementation.StartControllerImplementation [[java:jprieto.mastermind.controllers.implementation.StartControllerImplementation]] {
+	~SessionImplementation sessionImplementation
+	+StartControllerImplementation(Session session)
+	+void initGame()
+	+int getWidth()
+}
+mastermind.controllers.StartController <|-- mastermind.controllers.implementation.StartControllerImplementation
+mastermind.controllers.implementation.StartControllerImplementation *-down-> mastermind.models.SessionImplementation
+
+
+
+@enduml
