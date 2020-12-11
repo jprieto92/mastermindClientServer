@@ -16,7 +16,9 @@ public abstract class PlayController extends AcceptorController {
 
 	public abstract boolean isWinner();
 
-	public abstract Error addProposedCombination(List<Color> colors);
+	public abstract void addProposedCombination(List<Color> colors);
+	
+	public abstract Error getProposedCombinationError(List<Color> colors);
 
 	public abstract int getAttempts();
 

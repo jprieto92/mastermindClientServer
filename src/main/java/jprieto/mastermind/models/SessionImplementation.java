@@ -3,6 +3,7 @@ package jprieto.mastermind.models;
 import java.util.List;
 
 import jprieto.mastermind.types.Color;
+import jprieto.mastermind.types.Error;
 import jprieto.mastermind.types.StateValue;
 
 public class SessionImplementation implements Session {
@@ -23,7 +24,12 @@ public class SessionImplementation implements Session {
 			this.next();
 		}
 		this.registry.register();
-	}
+  }
+  
+  public Error getProposedCombinationError(List<Color> colors)
+  {
+	  return this.game.getProposedCombinationError(colors);
+  }
 
   public StateValue getValueState() {
     return this.state.getValueState();

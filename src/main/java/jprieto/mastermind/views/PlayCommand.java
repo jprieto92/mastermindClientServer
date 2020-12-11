@@ -19,13 +19,15 @@ class PlayCommand extends Command {
 
   private void addProposedCombination(PlayController playController) {
 	  Error error;
+	  List<Color> colors;
 		do {
-			List<Color> colors = new ProposedCombinationView(playController).read();
-			error = playController.addProposedCombination(colors);
+			colors = new ProposedCombinationView(playController).read();
+			error = playController.getProposedCombinationError(colors);
 			if (error != null) {
 				new ErrorView(error).writeln();
 			}
 		} while (error != null);
+		playController.addProposedCombination(colors);
 		this.console.writeln();
 		new AttemptsView(playController).writeln();
 		new SecretCombinationView(playController).writeln();

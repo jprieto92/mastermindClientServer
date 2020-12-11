@@ -19,6 +19,7 @@ import jprieto.mastermind.distributed.dispatchers.undoredo.RedoableDispatcher;
 import jprieto.mastermind.distributed.dispatchers.PlayWidthDispatcher;
 import jprieto.mastermind.distributed.dispatchers.ResumeDispatcher;
 import jprieto.mastermind.distributed.dispatchers.StateDispatcher;
+import jprieto.mastermind.distributed.dispatchers.errors.ProposedCombinationErrorDispatcher;
 
 
 
@@ -33,6 +34,7 @@ public class LogicImplementationServer extends LogicImplementation {
 		dispatcherPrototype.add(FrameType.LOOSER, new LooserDispatcher(this.playControllerImplementation));
 		dispatcherPrototype.add(FrameType.WINNER, new WinnerDispatcher(this.playControllerImplementation));
 		dispatcherPrototype.add(FrameType.PROPOSE_COMBINATION, new ProposeCombinationDispatcher(this.playControllerImplementation));
+		dispatcherPrototype.add(FrameType.PROPOSED_COMBINATION_ERROR, new ProposedCombinationErrorDispatcher(this.playControllerImplementation));
 		dispatcherPrototype.add(FrameType.ATTEMPTS, new AttemptsDispatcher(this.playControllerImplementation));
 		dispatcherPrototype.add(FrameType.COLORS, new ColorsDispatcher(this.playControllerImplementation));
 		dispatcherPrototype.add(FrameType.BLACKS, new BlacksDispatcher(this.playControllerImplementation));

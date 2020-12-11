@@ -2,7 +2,6 @@ package jprieto.mastermind.controllers;
 
 import java.util.List;
 
-import jprieto.mastermind.models.Combination;
 import jprieto.mastermind.models.Session;
 import jprieto.mastermind.types.Color;
 import jprieto.mastermind.types.Error;
@@ -25,27 +24,13 @@ public class ActionController extends Controller {
 		return this.sessionImplementation.isWinner();
 	}
 
-	public Error addProposedCombination(List<Color> colors) {
-		Error error = null;
-		if (colors.size() != this.sessionImplementation.getWidth()) {
-			error = Error.WRONG_LENGTH;
-		} else {
-			for (int i = 0; i < colors.size(); i++) {
-				if (colors.get(i) == null) {
-					error = Error.WRONG_CHARACTERS;
-				} else {
-					for (int j = i+1; j < colors.size(); j++) {
-						if (colors.get(i) == colors.get(j)) {
-							error = Error.DUPLICATED;
-						}
-					}
-				}				
-			}
-		}
-		if (error == null){
-			this.sessionImplementation.addProposedCombination(colors);
-		}
-		return error;
+	public void addProposedCombination(List<Color> colors) {
+		this.sessionImplementation.addProposedCombination(colors);
+	}
+	
+	public Error getProposedCombinationError(List<Color> colors)
+	{
+		return this.sessionImplementation.getProposedCombinationError(colors);
 	}
 
 	public int getAttempts() {

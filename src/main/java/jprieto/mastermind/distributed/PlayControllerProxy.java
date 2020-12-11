@@ -1,6 +1,5 @@
 package jprieto.mastermind.distributed;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jprieto.mastermind.types.Color;
@@ -35,8 +34,19 @@ public class PlayControllerProxy extends PlayController {
 	}
 
 	@Override
-	public Error addProposedCombination(List<Color> colors) {
+	public void addProposedCombination(List<Color> colors) {
 		this.tcpip.send(FrameType.PROPOSE_COMBINATION.name());
+		String proposedCombination = "";
+		for(int i = 0; i< colors.size(); i++)
+		{
+			proposedCombination += ColorUtils.INITIALS[colors.get(i).ordinal()];
+		}
+		this.tcpip.send(proposedCombination);
+	}
+	
+	@Override
+	public Error getProposedCombinationError(List<Color> colors) {
+		this.tcpip.send(FrameType.PROPOSED_COMBINATION_ERROR.name());
 		String proposedCombination = "";
 		for(int i = 0; i< colors.size(); i++)
 		{

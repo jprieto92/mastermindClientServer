@@ -34,8 +34,14 @@ public class PlayControllerImplementation extends PlayController {
 	}
 
 	@Override
-	public Error addProposedCombination(List<Color> colors) {
-		return this.actionController.addProposedCombination(colors);
+	public void addProposedCombination(List<Color> colors) {
+		this.actionController.addProposedCombination(colors);
+	}
+	
+	@Override
+	public Error getProposedCombinationError(List<Color> colors)
+	{
+		return this.actionController.getProposedCombinationError(colors);
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package jprieto.mastermind.models;
 import java.util.List;
 
 import jprieto.mastermind.types.Color;
+import jprieto.mastermind.types.Error;
 
 public class Game {
 
@@ -19,6 +20,27 @@ public class Game {
 
 	public void addProposedCombination(List<Color> colors) {
 		this.board.addProposedCombination(colors);
+	}
+	
+	public Error getProposedCombinationError(List<Color> colors)
+	{
+		Error error = null;
+		if (colors.size() != Combination.getWidth()) {
+			return Error.WRONG_LENGTH;
+		} else {
+			for (int i = 0; i < colors.size(); i++) {
+				if (colors.get(i) == null) {
+					return Error.WRONG_CHARACTERS;
+				} else {
+					for (int j = i+1; j < colors.size(); j++) {
+						if (colors.get(i) == colors.get(j)) {
+							return Error.DUPLICATED;
+						}
+					}
+				}				
+			}
+		}
+		return error;
 	}
 
 	public boolean isLooser() {

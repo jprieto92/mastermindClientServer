@@ -14,7 +14,7 @@ public class ProposeCombinationDispatcher extends Dispatcher {
 	@Override
 	public void dispatch() {
 		List<Color> proposedCombination = this.tcpip.receiveProposedCombination();
-		this.tcpip.send(((PlayController)this.acceptorController).addProposedCombination(proposedCombination));
+		((PlayController)this.acceptorController).addProposedCombination(proposedCombination);
 	}
     
 }
