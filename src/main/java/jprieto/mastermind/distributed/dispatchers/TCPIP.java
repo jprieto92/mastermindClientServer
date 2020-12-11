@@ -58,6 +58,15 @@ public class TCPIP extends jprieto.utils.TCPIP {
 		this.send("null");
 	}
 	
+	public void send(List<Color> value)
+	{
+		String convertedValue = "";
+		for(int i = 0; i< value.size(); i++)
+		{
+			convertedValue += ColorUtils.INITIALS[value.get(i).ordinal()];
+		}
+		this.send(convertedValue);
+	}
 
 	public Error receiveError() {
 		String error = this.receiveLine();
@@ -66,7 +75,6 @@ public class TCPIP extends jprieto.utils.TCPIP {
 		}
 		return Error.valueOf(error);
 	}
-
 	
 	public List<Color> receiveProposedCombination() {
 		String characters = this.receiveLine();

@@ -4,7 +4,7 @@ import jprieto.mastermind.types.Color;
 
 public abstract class ColorUtils extends WithConsoleView {
 
-	public static final char[] INITIALS = {'r', 'b', 'y', 'g', 'o', 'p'};
+	public static final char[] INITIALS = {'r', 'b', 'y', 'g', 'o', 'p', 'n'};
 
 	protected Color color;
 
@@ -15,7 +15,8 @@ public abstract class ColorUtils extends WithConsoleView {
 	public static String allInitials() {
 		String result = "";
 		for(char character: ColorUtils.INITIALS) {
-			result += character;
+			if(character != 'n')
+				result += character;
 		}
 		return result;
 	}
@@ -31,6 +32,11 @@ public abstract class ColorUtils extends WithConsoleView {
 			}
 		}
 		return null;
+	}
+	
+	public static Color getNullInstance()
+	{
+		return Color.NULL;
 	}
 	
 	public abstract void write();

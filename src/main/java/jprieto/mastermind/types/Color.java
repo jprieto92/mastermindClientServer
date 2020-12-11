@@ -6,7 +6,8 @@ public enum Color {
 	YELLOW, 
 	GREEN, 
 	ORANGE, 
-	PURPLE;
+	PURPLE,
+	NULL;
 
 	public static int length() {
 		return Color.values().length;

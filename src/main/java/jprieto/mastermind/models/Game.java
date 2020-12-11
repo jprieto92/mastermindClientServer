@@ -4,6 +4,7 @@ import java.util.List;
 
 import jprieto.mastermind.types.Color;
 import jprieto.mastermind.types.Error;
+import jprieto.utils.ColorUtils;
 
 public class Game {
 
@@ -29,7 +30,8 @@ public class Game {
 			return Error.WRONG_LENGTH;
 		} else {
 			for (int i = 0; i < colors.size(); i++) {
-				if (colors.get(i) == null) {
+				if (ColorUtils.getNullInstance() == colors.get(i) ||
+						colors.get(i) == null){
 					return Error.WRONG_CHARACTERS;
 				} else {
 					for (int j = i+1; j < colors.size(); j++) {

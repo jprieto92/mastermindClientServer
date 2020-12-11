@@ -25,7 +25,12 @@ class ProposedCombinationView extends WithConsoleView{
 		String characters = this.console.readString(MessageView.PROPOSED_COMBINATION.getMessage());
 		List<Color> colors = new ArrayList<Color>();
 		for (int i=0; i<characters.length(); i++) {
-			colors.add(ColorView.getInstance(characters.charAt(i)));
+			Color color = ColorView.getInstance(characters.charAt(i));
+			if(null == color)
+			{
+				color = ColorView.getNullInstance();
+			}
+			colors.add(color);
 		}
 		return colors;
 	}
