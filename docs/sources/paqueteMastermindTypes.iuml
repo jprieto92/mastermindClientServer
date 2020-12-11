@@ -1,0 +1,22 @@
+@startuml
+enum mastermind.types.Error [[java:jprieto.mastermind.types.Error]] {
+	DUPLICATED
+	WRONG_CHARACTERS
+	WRONG_LENGTH
+}
+enum mastermind.types.StateValue [[java:jprieto.mastermind.types.StateValue]] {
+	INITIAL
+	IN_GAME
+	RESUME
+	EXIT
+}
+enum mastermind.types.Color [[java:jprieto.mastermind.types.Color]] {
+	RED
+	BLUE
+	YELLOW
+	GREEN
+	ORANGE
+	PURPLE
+	+{static}int length()
+}
+@enduml

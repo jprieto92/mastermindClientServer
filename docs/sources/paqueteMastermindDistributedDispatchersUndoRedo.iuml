@@ -1,0 +1,27 @@
+@startuml
+
+class mastermind.distributed.dispatchers.undoredo.RedoableDispatcher [[java:jprieto.mastermind.distributed.dispatchers.undoredo.RedoableDispatcher]] {
+	+RedoableDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.undoredo.RedoableDispatcher
+
+class mastermind.distributed.dispatchers.undoredo.UndoDispatcher [[java:jprieto.mastermind.distributed.dispatchers.undoredo.UndoDispatcher]] {
+	+UndoDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.undoredo.UndoDispatcher
+
+class mastermind.distributed.dispatchers.undoredo.RedoDispatcher [[java:jprieto.mastermind.distributed.dispatchers.undoredo.RedoDispatcher]] {
+	+RedoDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.undoredo.RedoDispatcher
+
+class mastermind.distributed.dispatchers.undoredo.UndoableDispatcher [[java:jprieto.mastermind.distributed.dispatchers.undoredo.UndoableDispatcher]] {
+	+UndoableDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.undoredo.UndoableDispatcher
+
+@enduml

@@ -1,30 +1,46 @@
 @startuml
-
-package mastermind #DDDDDD { } 
-mastermind .down.> mastermind.views.graphics
-mastermind .down.> mastermind.views.console
-mastermind .down.> mastermind.controllers
+    package mastermind #DDDDDD { } 
 mastermind .down.> mastermind.views
+mastermind .down.> mastermind.controllers
+mastermind .down.> mastermind.controllers.implementation
 
 package mastermind.controllers #DDDDDD { } 
 mastermind.controllers .down.> mastermind.models
 mastermind.controllers .down.> java.util
 
+package mastermind.controllers.implementation #DDDDDD { } 
+mastermind.controllers.implementation .down.> mastermind.controllers
+
+package mastermind.distributed #DDDDDD { } 
+mastermind.distributed .down.> mastermind.distributed.dispatchers
+mastermind.distributed .down.> mastermind.controllers.implementation
+mastermind.distributed .down.> mastermind
+mastermind.distributed .down.> mastermind.models
+mastermind.distributed .down.> mastermind.controllers
+mastermind.distributed .down.> utils
+
+package mastermind.distributed.dispatchers #DDDDDD { } 
+mastermind.distributed.dispatchers .down.> mastermind.controllers
+mastermind.distributed.dispatchers .down.> mastermind.controllers.implementation
+mastermind.distributed.dispatchers .down.> utils
+mastermind.distributed.dispatchers .down.> java.util
+
+package mastermind.distributed.dispatchers.undoredo #DDDDDD { } 
+mastermind.distributed.dispatchers.undoredo .down.> mastermind.distributed.dispatchers
+mastermind.distributed.dispatchers.undoredo .down.> mastermind.controllers
+
 package mastermind.models #DDDDDD { }
 package java.util{ }
 mastermind.models .down.> java.util
+mastermind.models .down.> utils
 
 package utils #DDDDDD { } 
 package java.io{ }
 utils .down.> java.io
+package java.net{ }
+utils .down.> java.net
 
 package mastermind.views #DDDDDD { } 
 mastermind.views .down.> mastermind.controllers
-
-package mastermind.views.console #DDDDDD { } 
-mastermind.views.console .down.> mastermind.views
-mastermind.views.console .down.> mastermind.controllers 
-mastermind.views.console .down.> utils
-
-package mastermind.views.graphics #DDDDDD { } 
+mastermind.views .down.> utils
 @enduml

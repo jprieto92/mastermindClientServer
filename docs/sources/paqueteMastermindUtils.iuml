@@ -1,40 +1,96 @@
 @startuml
-class mastermind.utils.ClosedInterval{
-- int min
-- int max
 
-+ ClosedInterval(int min, int max)
-+ includes(int value) : boolean
-+ toString() : String
+class utils.ClosedInterval [[java:jprieto.utils.ClosedInterval]] {
+	-int min
+	-int max
+	+ClosedInterval(int min, int max)
+	+boolean isIncluded(int value)
+	+String toString()
 }
 
-class mastermind.utils.Console{
-+ {static} Console console
-- BufferedReader bufferedReader
-
-+ {static} instance() : Console
-+ readString(String title) : String
-+ readString() : String
-+ readInt(String title) : int
-+ readChar(String title) : char
-+ writeln() : void
-+ write() : void
-+ writeln(String string) : void
-+ write(char character) : void
-- writeError(String format) : void
+abstract class utils.ColorUtils [[java:jprieto.utils.ColorUtils]] {
+	+{static}char[] INITIALS
+	#Color color
+	+ColorUtils(Color color)
+	+{static}String allInitials()
+	+char getInitial()
+	+{static}Color getInstance(char character)
+	+{abstract}void write()
 }
-mastermind.utils.Console *-down-> java.io.BufferedReader
-mastermind.utils.Console ..> java.io.InputStreamReader
+utils.WithConsoleView <|-- utils.ColorUtils
+utils.ColorUtils *-down-> mastermind.types.Color
 
-class mastermind.utils.YesNoDialog{
-- {static} AFIRMATIVE: char
-- {static} NEGATIVE: char
-- {static} QUESTION: String
-- {static} MESSAGE: String
-- char answer
-+ read(String title): boolean
-+ read(): boolean
-- {static} isAfirmative(char answer): boolean
-- {static} isNegative(char answer): boolean
+abstract class utils.Command [[java:jprieto.utils.Command]] {
+	#String title
+	#Command(String title)
+	#{abstract}void execute()
+	#{abstract}boolean isActive()
+	~String getTitle()
 }
+utils.WithConsoleView <|-- utils.Command
+
+class utils.Console [[java:jprieto.utils.Console]] {
+	+{static}Console console
+	-BufferedReader bufferedReader
+	+{static}Console instance()
+	+String readString(String title)
+	+String readString()
+	+int readInt(String title)
+	+char readChar(String title)
+	+void writeln()
+	+void write(String string)
+	+void write(int integer)
+	+void writeln(String string)
+	+void writeln(int integer)
+	+void write(char character)
+	+void writeError(String format)
+}
+
+abstract class utils.Menu [[java:jprieto.utils.Menu]] {
+	-{static}String OPTION
+	-List<Command> commandList
+	+Menu()
+	+void execute()
+	#void addCommand(Command command)
+}
+utils.Menu *-down-> utils.Command
+utils.WithConsoleView <|-- utils.Menu
+
+class utils.TCPIP [[java:jprieto.utils.TCPIP]] {
+	-ServerSocket serverSocket
+	-Socket socket
+	-PrintWriter out
+	-BufferedReader in
+	+TCPIP(Socket socket)
+	+TCPIP(ServerSocket serverSocket, Socket socket)
+	+{static}TCPIP createClientSocket()
+	+{static}TCPIP createServerSocket()
+	+void send(String value)
+	+void send(int value)
+	+void send(boolean value)
+	+void send(char value)
+	+String receiveLine()
+	+boolean receiveBoolean()
+	+int receiveInt()
+	+char receiveChar()
+	+void close()
+}
+
+abstract class utils.WithConsoleView [[java:jprieto.utils.WithConsoleView]] {
+	#Console console
+	#WithConsoleView()
+}
+utils.WithConsoleView *-down-> utils.Console
+
+class utils.YesNoDialog [[java:jprieto.utils.YesNoDialog]] {
+	-{static}char AFIRMATIVE
+	-{static}char NEGATIVE
+	-{static}String QUESTION
+	-{static}String MESSAGE
+	+boolean read(String title)
+	-{static}boolean isAfirmative(char answer)
+	-{static}boolean isNegative(char answer)
+}
+utils.WithConsoleView <|-- utils.YesNoDialog
+
 @enduml

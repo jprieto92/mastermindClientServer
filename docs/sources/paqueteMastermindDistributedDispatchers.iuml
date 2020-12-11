@@ -1,0 +1,131 @@
+@startuml
+
+class mastermind.distributed.dispatchers.AttemptsDispatcher [[java:jprieto.mastermind.distributed.dispatchers.AttemptsDispatcher]] {
+	+AttemptsDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.AttemptsDispatcher
+
+class mastermind.distributed.dispatchers.BlacksDispatcher [[java:jprieto.mastermind.distributed.dispatchers.BlacksDispatcher]] {
+	+BlacksDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.BlacksDispatcher
+
+class mastermind.distributed.dispatchers.ColorsDispatcher [[java:jprieto.mastermind.distributed.dispatchers.ColorsDispatcher]] {
+	+ColorsDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.ColorsDispatcher
+
+abstract class mastermind.distributed.dispatchers.Dispatcher [[java:jprieto.mastermind.distributed.dispatchers.Dispatcher]] {
+	#AcceptorController acceptorController
+	+Dispatcher(AcceptorController acceptorController)
+	+{abstract}void dispatch()
+	+void associate(TCPIP tcpip)
+}
+mastermind.distributed.dispatchers.Dispatcher *-down-> mastermind.distributed.dispatchers.TCPIP
+mastermind.distributed.dispatchers.Dispatcher *-down-> mastermind.distributed.controllers.AcceptorController
+
+class mastermind.distributed.dispatchers.DispatcherPrototype [[java:jprieto.mastermind.distributed.dispatchers.DispatcherPrototype]] {
+	-TCPIP tcpip
+	-Map<FrameType,Dispatcher> dispatcherMap
+	+DispatcherPrototype()
+	+void add(FrameType frameType, Dispatcher dispatcher)
+	+void dispatch(FrameType frameType)
+	+void serve()
+}
+mastermind.distributed.dispatchers.DispatcherPrototype *-down-> mastermind.distributed.dispatchers.TCPIP
+mastermind.distributed.dispatchers.DispatcherPrototype *-down-> mastermind.distributed.dispatchers.FrameType
+mastermind.distributed.dispatchers.DispatcherPrototype *-down-> mastermind.distributed.dispatchers.Dispatcher
+
+enum mastermind.distributed.dispatchers.FrameType [[java:jprieto.mastermind.distributed.dispatchers.FrameType]] {
+	STATE
+	START
+	START_WIDTH
+	WINNER
+	LOOSER
+	PROPOSE_COMBINATION
+	ATTEMPTS
+	COLORS
+	BLACKS
+	WHITES
+	UNDO
+	REDO
+	UNDOABLE
+	REDOABLE
+	PLAY_WIDTH
+	CLOSE
+	NEXT_STATE
+	NEW_GAME
+	+{static}FrameType parser(String string)
+}
+
+class mastermind.distributed.dispatchers.LooserDispatcher [[java:jprieto.mastermind.distributed.dispatchers.LooserDispatcher]] {
+	+LooserDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.LooserDispatcher
+
+class mastermind.distributed.dispatchers.PlayWidthDispatcher [[java:jprieto.mastermind.distributed.dispatchers.PlayWidthDispatcher]] {
+	+PlayWidthDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.PlayWidthDispatcher
+
+class mastermind.distributed.dispatchers.ProposeCombinationDispatcher [[java:jprieto.mastermind.distributed.dispatchers.ProposeCombinationDispatcher]] {
+	+ProposeCombinationDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.ProposeCombinationDispatcher
+
+class mastermind.distributed.dispatchers.ResumeDispatcher [[java:jprieto.mastermind.distributed.dispatchers.ResumeDispatcher]] {
+	+ResumeDispatcher(ResumeController resumeController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.ResumeDispatcher
+
+class mastermind.distributed.dispatchers.StartDispatcher [[java:jprieto.mastermind.distributed.dispatchers.StartDispatcher]] {
+	+StartDispatcher(StartController startController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.StartDispatcher
+
+class mastermind.distributed.dispatchers.StartWidthDispatcher [[java:jprieto.mastermind.distributed.dispatchers.StartWidthDispatcher]] {
+	+StartWidthDispatcher(StartController startController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.StartWidthDispatcher
+
+class mastermind.distributed.dispatchers.StateDispatcher [[java:jprieto.mastermind.distributed.dispatchers.StateDispatcher]] {
+	+StateDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.StateDispatcher
+
+class mastermind.distributed.dispatchers.TCPIP [[java:jprieto.mastermind.distributed.dispatchers.TCPIP]] {
+	+{static}TCPIP createClientSocket()
+	+{static}TCPIP createServerSocket()
+	+TCPIP(Socket socket)
+	+TCPIP(ServerSocket serverSocket, Socket socket)
+	+void send(Error value)
+	+void send()
+	+Error receiveError()
+	+List<Color> receiveProposedCombination()
+	+void close()
+}
+utils.TCPIP <|-- mastermind.distributed.dispatchers.TCPIP
+
+class mastermind.distributed.dispatchers.WhitesDispatcher [[java:jprieto.mastermind.distributed.dispatchers.WhitesDispatcher]] {
+	+WhitesDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.WhitesDispatcher
+
+class mastermind.distributed.dispatchers.WinnerDispatcher [[java:jprieto.mastermind.distributed.dispatchers.WinnerDispatcher]] {
+	+WinnerDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.WinnerDispatcher
+
+@enduml

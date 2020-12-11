@@ -18,7 +18,7 @@ The structure of this repository is:
 # Requisites
 
 * Wiki - Youtube: https://www.youtube.com/watch?v=2-hTeg2M6GQ
-* Functionality: Basic
+* Functionality: Basic + undo/redo
 * Interface: Text
 * Distribution: Standalone + Client/Server
 * Persistence: No
@@ -40,17 +40,33 @@ The structure of this repository is:
 
 ![views](docs/images/paqueteMastermindViews.png)
 
-### mastermind.views.console
-
-![console](docs/images/paqueteMastermindViewsConsole.png)
-
 ### mastermind.controllers
 
 ![controllers](docs/images/paqueteMastermindControllers.png)
 
+### mastermind.controllers.implementation
+
+![controllers](docs/images/paqueteMastermindControllersImplementation.png)
+
+### mastermind.controllers.distributed
+
+![controllers](docs/images/paqueteMastermindDistributed.png)
+
+### mastermind.controllers.distributed.dispatchers
+
+![controllers](docs/images/paqueteMastermindDistributedDispatchers.png)
+
+### mastermind.controllers.distributed.dispatchers.undoredo
+
+![controllers](docs/images/paqueteMastermindDistributedDispatchersUndoRedo.png)
+
 ### mastermind.models
 
 ![models](docs/images/paqueteMastermindModels.png)
+
+### mastermind.types
+
+![models](docs/images/paqueteMastermindTypes.png)
 
 ### mastermind.utils
 

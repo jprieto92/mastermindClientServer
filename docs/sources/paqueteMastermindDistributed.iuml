@@ -1,0 +1,81 @@
+@startuml
+
+class mastermind.distributed.LogicImplementationServer [[java:jprieto.mastermind.distributed.LogicImplementationServer]] {
+	+void createDispatchers(DispatcherPrototype dispatcherPrototype)
+}
+mastermind.controllers.implementation.LogicImplementation <|-- mastermind.distributed.LogicImplementationServer
+
+class mastermind.distributed.LogicProxy [[java:jprieto.mastermind.distributed.LogicProxy]] {
+	-TCPIP tcpip
+	+LogicProxy()
+	+void close()
+}
+mastermind.controllers.Logic <|-- mastermind.distributed.LogicProxy
+mastermind.distributed.LogicProxy *-down-> utils.TCPIP
+
+class mastermind.distributed.MastermindClient [[java:jprieto.mastermind.distributed.MastermindClient]] {
+	#Logic createLogic()
+	#void play()
+	+{static}void main(String[] args)
+}
+mastermind.distributed.MastermindClient *-down-> mastermind.distributed.LogicProxy
+mastermind.Mastermind <|-- mastermind.distributed.MastermindClient
+
+class mastermind.distributed.MastermindServer [[java:jprieto.mastermind.distributed.MastermindServer]] {
+	-DispatcherPrototype dispatcherPrototype
+	-LogicImplementationServer logic
+	-MastermindServer()
+	-void serve()
+	+{static}void main(String[] args)
+}
+mastermind.distributed.MastermindServer *-down-> mastermind.distributed.LogicImplementationServer
+mastermind.distributed.MastermindServer *-down-> mastermind.distributed.dispatchers.DispatcherPrototype
+
+class mastermind.distributed.PlayControllerProxy [[java:jprieto.mastermind.distributed.PlayControllerProxy]] {
+	-TCPIP tcpip
+	~PlayControllerProxy(Session session, TCPIP tcpip)
+	+boolean isLooser()
+	+boolean isWinner()
+	+Error addProposedCombination(List<Color> colors)
+	+int getAttempts()
+	+List<Color> getColors(int position)
+	+int getBlacks(int position)
+	+int getWhites(int position)
+	+void undo()
+	+boolean undoable()
+	+void redo()
+	+boolean redoable()
+	+int getWidth()
+}
+mastermind.controllers.PlayController <|-- mastermind.distributed.PlayControllerProxy
+mastermind.distributed.PlayControllerProxy *-down-> utils.TCPIP
+
+class mastermind.distributed.ResumeControllerProxy [[java:jprieto.mastermind.distributed.ResumeControllerProxy]] {
+	-TCPIP tcpip
+	+ResumeControllerProxy(Session session, TCPIP tcpip)
+	+void resume(boolean newGame)
+}
+mastermind.controllers.ResumeController <|-- mastermind.distributed.ResumeControllerProxy
+mastermind.distributed.ResumeControllerProxy *-down-> utils.TCPIP
+
+class mastermind.distributed.SessionProxy [[java:jprieto.mastermind.distributed.SessionProxy]] {
+	-TCPIP tcpip
+	+SessionProxy(TCPIP tcpip)
+	+StateValue getValueState()
+	+int getWidth()
+}
+interface mastermind.models.Session [[java:jprieto.mastermind.models.Session]] {
+}
+mastermind.models.Session <|.. mastermind.distributed.SessionProxy
+mastermind.distributed.SessionProxy *-down-> utils.TCPIP
+
+class mastermind.distributed.StartControllerProxy [[java:jprieto.mastermind.distributed.StartControllerProxy]] {
+	-TCPIP tcpip
+	+StartControllerProxy(Session session, TCPIP tcpip)
+	+void initGame()
+	+int getWidth()
+}
+mastermind.controllers.StartController <|-- mastermind.distributed.StartControllerProxy
+mastermind.distributed.StartControllerProxy *-down-> utils.TCPIP
+
+@enduml
