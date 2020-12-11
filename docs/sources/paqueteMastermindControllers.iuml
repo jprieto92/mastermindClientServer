@@ -45,6 +45,7 @@ class mastermind.controllers.Logic [[java:jprieto.mastermind.controllers.Logic]]
 mastermind.controllers.Logic *-down-> mastermind.models.Session
 mastermind.controllers.Logic *-down-> mastermind.types.StateValue
 mastermind.controllers.Logic *-down-> mastermind.controllers.AcceptorController
+mastermind.controllers.Logic *-down-> java.util.HashMap
 
 abstract class mastermind.controllers.PlayController [[java:jprieto.mastermind.controllers.PlayController]] {
 	+PlayController(Session session)
@@ -64,6 +65,7 @@ abstract class mastermind.controllers.PlayController [[java:jprieto.mastermind.c
 	+void accept(ControllerVisitor controllersVisitor)
 }
 mastermind.controllers.AcceptorController <|-- mastermind.controllers.PlayController
+mastermind.controllers.PlayController ..> mastermind.controllers.ControllerVisitor
 
 class mastermind.controllers.RedoController [[java:jprieto.mastermind.controllers.RedoController]] {
 	-SessionImplementation sessionImplementation
@@ -72,6 +74,7 @@ class mastermind.controllers.RedoController [[java:jprieto.mastermind.controller
 	+boolean redoable()
 }
 mastermind.controllers.Controller <|-- mastermind.controllers.RedoController
+mastermind.controllers.RedoController *-down-> mastermind.models.SessionImplementation
 
 abstract class mastermind.controllers.ResumeController [[java:jprieto.mastermind.controllers.ResumeController]] {
 	+ResumeController(Session session)
@@ -79,6 +82,8 @@ abstract class mastermind.controllers.ResumeController [[java:jprieto.mastermind
 	+void accept(ControllerVisitor controllerVisitor)
 }
 mastermind.controllers.AcceptorController <|-- mastermind.controllers.ResumeController
+mastermind.controllers.ResumeController ..> mastermind.controllers.ControllerVisitor
+
 
 abstract class mastermind.controllers.StartController [[java:jprieto.mastermind.controllers.StartController]] {
 	+StartController(Session session)
@@ -86,6 +91,8 @@ abstract class mastermind.controllers.StartController [[java:jprieto.mastermind.
 	+void accept(ControllerVisitor controllerVisitor)
 }
 mastermind.controllers.AcceptorController <|-- mastermind.controllers.StartController
+mastermind.controllers.StartController ..> mastermind.controllers.ControllerVisitor
+
 
 class mastermind.controllers.UndoController [[java:jprieto.mastermind.controllers.UndoController]] {
 	-SessionImplementation sessionImplementation

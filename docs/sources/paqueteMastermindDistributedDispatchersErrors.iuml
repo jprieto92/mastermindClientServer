@@ -4,4 +4,6 @@ class mastermind.distributed.dispatchers.errors.ProposedCombinationErrorDispatch
 	+void dispatch()
 }
 mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.errors.ProposedCombinationErrorDispatcher
+mastermind.distributed.dispatchers.errors.ProposedCombinationErrorDispatcher ..> mastermind.controllers.PlayController
+
 @enduml

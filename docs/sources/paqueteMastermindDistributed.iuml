@@ -4,6 +4,8 @@ class mastermind.distributed.LogicImplementationServer [[java:jprieto.mastermind
 	+void createDispatchers(DispatcherPrototype dispatcherPrototype)
 }
 mastermind.controllers.implementation.LogicImplementation <|-- mastermind.distributed.LogicImplementationServer
+mastermind.distributed.LogicImplementationServer ..> mastermind.distributed.dispatchers.DispatcherPrototype
+mastermind.distributed.LogicImplementationServer ..> mastermind.distributed.dispatchers.FrameType
 
 class mastermind.distributed.LogicProxy [[java:jprieto.mastermind.distributed.LogicProxy]] {
 	-TCPIP tcpip
@@ -12,14 +14,15 @@ class mastermind.distributed.LogicProxy [[java:jprieto.mastermind.distributed.Lo
 }
 mastermind.controllers.Logic <|-- mastermind.distributed.LogicProxy
 mastermind.distributed.LogicProxy *-down-> utils.TCPIP
+mastermind.distributed.LogicProxy  ..> mastermind.controllers.AcceptorController
 
 class mastermind.distributed.MastermindClient [[java:jprieto.mastermind.distributed.MastermindClient]] {
 	#Logic createLogic()
 	#void play()
 	+{static}void main(String[] args)
 }
-mastermind.distributed.MastermindClient *-down-> mastermind.distributed.LogicProxy
 mastermind.Mastermind <|-- mastermind.distributed.MastermindClient
+mastermind.distributed.MastermindClient *-down-> mastermind.distributed.LogicProxy
 
 class mastermind.distributed.MastermindServer [[java:jprieto.mastermind.distributed.MastermindServer]] {
 	-DispatcherPrototype dispatcherPrototype
@@ -50,6 +53,7 @@ class mastermind.distributed.PlayControllerProxy [[java:jprieto.mastermind.distr
 }
 mastermind.controllers.PlayController <|-- mastermind.distributed.PlayControllerProxy
 mastermind.distributed.PlayControllerProxy *-down-> utils.TCPIP
+mastermind.distributed.PlayControllerProxy ..> mastermind.distributed.dispatchers.FrameType
 
 class mastermind.distributed.ResumeControllerProxy [[java:jprieto.mastermind.distributed.ResumeControllerProxy]] {
 	-TCPIP tcpip
@@ -58,6 +62,7 @@ class mastermind.distributed.ResumeControllerProxy [[java:jprieto.mastermind.dis
 }
 mastermind.controllers.ResumeController <|-- mastermind.distributed.ResumeControllerProxy
 mastermind.distributed.ResumeControllerProxy *-down-> utils.TCPIP
+mastermind.distributed.ResumeControllerProxy ..> mastermind.distributed.dispatchers.FrameType
 
 class mastermind.distributed.SessionProxy [[java:jprieto.mastermind.distributed.SessionProxy]] {
 	-TCPIP tcpip
@@ -69,6 +74,9 @@ interface mastermind.models.Session [[java:jprieto.mastermind.models.Session]] {
 }
 mastermind.models.Session <|.. mastermind.distributed.SessionProxy
 mastermind.distributed.SessionProxy *-down-> utils.TCPIP
+mastermind.distributed.SessionProxy ..> mastermind.distributed.dispatchers.FrameType
+mastermind.distributed.SessionProxy ..> mastermind.types.StateValue
+
 
 class mastermind.distributed.StartControllerProxy [[java:jprieto.mastermind.distributed.StartControllerProxy]] {
 	-TCPIP tcpip
@@ -78,5 +86,7 @@ class mastermind.distributed.StartControllerProxy [[java:jprieto.mastermind.dist
 }
 mastermind.controllers.StartController <|-- mastermind.distributed.StartControllerProxy
 mastermind.distributed.StartControllerProxy *-down-> utils.TCPIP
+mastermind.distributed.StartControllerProxy ..> mastermind.distributed.dispatchers.FrameType
+
 
 @enduml

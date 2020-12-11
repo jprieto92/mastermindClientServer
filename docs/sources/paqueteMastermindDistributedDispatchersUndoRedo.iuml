@@ -5,23 +5,30 @@ class mastermind.distributed.dispatchers.undoredo.RedoableDispatcher [[java:jpri
 	+void dispatch()
 }
 mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.undoredo.RedoableDispatcher
+mastermind.distributed.dispatchers.undoredo.RedoableDispatcher ..> mastermind.controllers.PlayController
 
 class mastermind.distributed.dispatchers.undoredo.UndoDispatcher [[java:jprieto.mastermind.distributed.dispatchers.undoredo.UndoDispatcher]] {
 	+UndoDispatcher(PlayController playController)
 	+void dispatch()
 }
 mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.undoredo.UndoDispatcher
+mastermind.distributed.dispatchers.undoredo.UndoDispatcher ..> mastermind.controllers.PlayController
+
 
 class mastermind.distributed.dispatchers.undoredo.RedoDispatcher [[java:jprieto.mastermind.distributed.dispatchers.undoredo.RedoDispatcher]] {
 	+RedoDispatcher(PlayController playController)
 	+void dispatch()
 }
 mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.undoredo.RedoDispatcher
+mastermind.distributed.dispatchers.undoredo.RedoDispatcher ..> mastermind.controllers.PlayController
+
 
 class mastermind.distributed.dispatchers.undoredo.UndoableDispatcher [[java:jprieto.mastermind.distributed.dispatchers.undoredo.UndoableDispatcher]] {
 	+UndoableDispatcher(PlayController playController)
 	+void dispatch()
 }
 mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.undoredo.UndoableDispatcher
+mastermind.distributed.dispatchers.undoredo.UndoableDispatcher ..> mastermind.controllers.PlayController
+
 
 @enduml

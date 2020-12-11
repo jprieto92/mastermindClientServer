@@ -6,10 +6,11 @@ class mastermind.controllers.implementation.LogicImplementation [[java:jprieto.m
 	#ResumeControllerImplementation resumeControllerImplementation
 	+LogicImplementation()
 }
+mastermind.controllers.Logic <|-- mastermind.controllers.implementation.LogicImplementation
 mastermind.controllers.implementation.LogicImplementation *-down-> mastermind.controllers.implementation.StartControllerImplementation
 mastermind.controllers.implementation.LogicImplementation *-down-> mastermind.controllers.implementation.PlayControllerImplementation
 mastermind.controllers.implementation.LogicImplementation *-down-> mastermind.controllers.implementation.ResumeControllerImplementation
-mastermind.controllers.Logic <|-- mastermind.controllers.implementation.LogicImplementation
+mastermind.controllers.implementation.LogicImplementation ..> mastermind.controllers.AcceptorController
 
 class mastermind.controllers.implementation.PlayControllerImplementation [[java:jprieto.mastermind.controllers.implementation.PlayControllerImplementation]] {
 	-ActionController actionController
