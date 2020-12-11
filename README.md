@@ -56,6 +56,10 @@ The structure of this repository is:
 
 ![controllers](docs/images/paqueteMastermindDistributedDispatchers.png)
 
+### mastermind.controllers.distributed.dispatchers.errors
+
+![controllers](docs/images/paqueteMastermindDistributedDispatchersErrors.png)
+
 ### mastermind.controllers.distributed.dispatchers.undoredo
 
 ![controllers](docs/images/paqueteMastermindDistributedDispatchersUndoRedo.png)
