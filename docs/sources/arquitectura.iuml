@@ -25,6 +25,10 @@ mastermind.distributed.dispatchers .down.> mastermind.controllers.implementation
 mastermind.distributed.dispatchers .down.> utils
 mastermind.distributed.dispatchers .down.> java.util
 
+package mastermind.distributed.dispatchers.errors #DDDDDD { } 
+mastermind.distributed.dispatchers.errors .down.> mastermind.distributed.dispatchers
+mastermind.distributed.dispatchers.errors .down.> mastermind.controllers
+
 package mastermind.distributed.dispatchers.undoredo #DDDDDD { } 
 mastermind.distributed.dispatchers.undoredo .down.> mastermind.distributed.dispatchers
 mastermind.distributed.dispatchers.undoredo .down.> mastermind.controllers

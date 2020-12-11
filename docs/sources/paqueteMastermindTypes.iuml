@@ -17,6 +17,7 @@ enum mastermind.types.Color [[java:jprieto.mastermind.types.Color]] {
 	GREEN
 	ORANGE
 	PURPLE
+	NULL
 	+{static}int length()
 }
 @enduml

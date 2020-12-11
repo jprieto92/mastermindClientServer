@@ -46,6 +46,7 @@ enum mastermind.distributed.dispatchers.FrameType [[java:jprieto.mastermind.dist
 	WINNER
 	LOOSER
 	PROPOSE_COMBINATION
+	PROPOSED_COMBINATION_ERROR
 	ATTEMPTS
 	COLORS
 	BLACKS

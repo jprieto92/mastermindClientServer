@@ -41,6 +41,7 @@ class mastermind.models.Game [[java:jprieto.mastermind.models.Game]] {
 	+Game()
 	+void clear()
 	+void addProposedCombination(List<Color> colors)
+	+Error getProposedCombinationError(List<Color> colors)
 	+boolean isLooser()
 	+boolean isWinner()
 	+int getAttempts()
@@ -115,6 +116,7 @@ class mastermind.models.SessionImplementation [[java:jprieto.mastermind.models.S
 	-State state
 	+SessionImplementation()
 	+void addProposedCombination(List<Color> colors)
+	+Error getProposedCombinationError(List<Color> colors)
 	+StateValue getValueState()
 	+int getWidth()
 	+void next()

@@ -15,6 +15,7 @@ abstract class utils.ColorUtils [[java:jprieto.utils.ColorUtils]] {
 	+{static}String allInitials()
 	+char getInitial()
 	+{static}Color getInstance(char character)
+	+{static}Color getNullInstance()
 	+{abstract}void write()
 }
 utils.WithConsoleView <|-- utils.ColorUtils

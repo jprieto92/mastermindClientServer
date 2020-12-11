@@ -1,0 +1,7 @@
+@startuml
+class mastermind.distributed.dispatchers.errors.ProposedCombinationErrorDispatcher [[java:jprieto.mastermind.distributed.dispatchers.errors.ProposedCombinationErrorDispatcher]] {
+	+ProposedCombinationErrorDispatcher(PlayController playController)
+	+void dispatch()
+}
+mastermind.distributed.dispatchers.Dispatcher <|-- mastermind.distributed.dispatchers.errors.ProposedCombinationErrorDispatcher
+@enduml
