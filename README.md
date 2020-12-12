@@ -13,15 +13,15 @@ The structure of this repository is:
 * **docs**: This folder has the UML diagrams sources (iuml) and images (png).
 * **src**: This folder has the mastermind code (Java language).
 * **pom.xml**: This file has the maven project configuration.
-* **mastermind_javierprietocepeda.jar**: Mastermind runnable jar file.
+* **bin**: Mastermind runnable jar files.
 
 # Requisites
 
-* Wiki - Youtube: https://www.youtube.com/watch?v=2-hTeg2M6GQ
-* Functionality: Basic + undo/redo
-* Interface: Text
-* Distribution: Standalone + Client/Server
-* Persistence: No
+* **Wiki** - Youtube: https://www.youtube.com/watch?v=2-hTeg2M6GQ
+* **Functionality**: Basic + undo/redo
+* **Interface**: Text
+* **Distribution**: Standalone + Client/Server
+* **Persistence**: No
 
 # Project Design
 
