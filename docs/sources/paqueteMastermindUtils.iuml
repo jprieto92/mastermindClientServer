@@ -46,6 +46,8 @@ class utils.Console [[java:jprieto.utils.Console]] {
 	+void write(char character)
 	+void writeError(String format)
 }
+utils.Console ..> java.io.BufferedReader
+utils.Console ..> java.io.InputStreamReader
 
 abstract class utils.Menu [[java:jprieto.utils.Menu]] {
 	-{static}String OPTION
@@ -54,8 +56,9 @@ abstract class utils.Menu [[java:jprieto.utils.Menu]] {
 	+void execute()
 	#void addCommand(Command command)
 }
-utils.Menu *-down-> utils.Command
 utils.WithConsoleView <|-- utils.Menu
+utils.Menu *-down-> utils.Command
+utils.Menu ..> java.util.ArrayList
 
 class utils.TCPIP [[java:jprieto.utils.TCPIP]] {
 	-ServerSocket serverSocket
@@ -76,6 +79,12 @@ class utils.TCPIP [[java:jprieto.utils.TCPIP]] {
 	+char receiveChar()
 	+void close()
 }
+utils.TCPIP *-down-> java.io.BufferedReader
+utils.TCPIP ..> java.io.IOException
+utils.TCPIP ..> java.io.InputStreamReader
+utils.TCPIP *-down-> java.io.PrintWriter
+utils.TCPIP *-down-> java.net.ServerSocket
+utils.TCPIP *-down-> java.net.Socket
 
 abstract class utils.WithConsoleView [[java:jprieto.utils.WithConsoleView]] {
 	#Console console

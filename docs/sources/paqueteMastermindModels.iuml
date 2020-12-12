@@ -25,6 +25,8 @@ class mastermind.models.Board [[java:jprieto.mastermind.models.Board]] {
 mastermind.models.Board *-down-> mastermind.models.SecretCombination
 mastermind.models.Board *-down-> mastermind.models.ProposedCombination
 mastermind.models.Board *-down-> mastermind.models.Result
+mastermind.models.Board *-down-> java.util.ArrayList
+mastermind.models.Board ..> mastermind.models.Combination
 
 abstract class mastermind.models.Combination [[java:jprieto.mastermind.models.Combination]] {
 	-{static}int WIDTH
@@ -34,6 +36,7 @@ abstract class mastermind.models.Combination [[java:jprieto.mastermind.models.Co
 	+{abstract}Combination copy()
 }
 mastermind.models.Combination *-down-> mastermind.types.Color
+mastermind.models.Combination *-down-> java.util.ArrayList
 
 class mastermind.models.Game [[java:jprieto.mastermind.models.Game]] {
 	-{static}int MAX_LONG
@@ -54,6 +57,11 @@ class mastermind.models.Game [[java:jprieto.mastermind.models.Game]] {
 	+void newGame()
 }
 mastermind.models.Game *-down-> mastermind.models.Board
+mastermind.models.Game ..> mastermind.types.Error
+mastermind.models.Game ..> java.util.ArrayList
+mastermind.models.Game ..> mastermind.models.Combination
+mastermind.models.Game ..> utils.ColorUtils
+mastermind.models.Game ..> mastermind.models.GameMemento
 
 class mastermind.models.GameMemento [[java:jprieto.mastermind.models.GameMemento]] {
 	-Board board
@@ -76,6 +84,7 @@ class mastermind.models.GameRegistry [[java:jprieto.mastermind.models.GameRegist
 }
 mastermind.models.GameRegistry *-down-> mastermind.models.GameMemento
 mastermind.models.GameRegistry *-down-> mastermind.models.Game
+mastermind.models.GameRegistry *-down-> java.util.ArrayList
 
 class mastermind.models.ProposedCombination [[java:jprieto.mastermind.models.ProposedCombination]] {
 	~ProposedCombination(List<Color> colors)
@@ -96,6 +105,7 @@ class mastermind.models.Result [[java:jprieto.mastermind.models.Result]] {
 	~int getWhites()
 	~Result copy()
 }
+mastermind.models.Result ..> mastermind.models.Combination
 
 class mastermind.models.SecretCombination [[java:jprieto.mastermind.models.SecretCombination]] {
 	~SecretCombination()
@@ -104,6 +114,9 @@ class mastermind.models.SecretCombination [[java:jprieto.mastermind.models.Secre
 	+SecretCombination copy()
 }
 mastermind.models.Combination <|-- mastermind.models.SecretCombination
+mastermind.models.SecretCombination ..> mastermind.types.Color
+mastermind.models.SecretCombination ..> java.util.Collections
+mastermind.models.SecretCombination ..> java.util.Random
 
 interface mastermind.models.Session [[java:jprieto.mastermind.models.Session]] {
 	StateValue getValueState()

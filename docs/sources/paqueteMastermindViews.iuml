@@ -7,6 +7,7 @@ class mastermind.views.AttemptsView [[java:jprieto.mastermind.views.AttemptsView
 }
 utils.WithConsoleView <|-- mastermind.views.AttemptsView
 mastermind.views.AttemptsView *-down-> mastermind.controllers.PlayController
+mastermind.views.AttemptsView ..> mastermind.views.MessageView
 
 class mastermind.views.ColorView [[java:jprieto.mastermind.views.ColorView]] {
 	+ColorView(Color color)
@@ -29,6 +30,7 @@ class mastermind.views.ErrorView [[java:jprieto.mastermind.views.ErrorView]] {
 	~void writeln()
 }
 utils.WithConsoleView <|-- mastermind.views.ErrorView
+mastermind.views.ErrorView ..> mastermind.views.ColorView
 
 enum mastermind.views.MessageView [[java:jprieto.mastermind.views.MessageView]] {
 	ATTEMPTS
@@ -54,6 +56,12 @@ class mastermind.views.PlayCommand [[java:jprieto.mastermind.views.PlayCommand]]
 	#boolean isActive()
 }
 mastermind.views.Command <|-- mastermind.views.PlayCommand
+mastermind.views.PlayCommand ..> mastermind.views.MessageView
+mastermind.views.PlayCommand ..> mastermind.views.ProposedCombinationView
+mastermind.views.PlayCommand ..> mastermind.views.ErrorView
+mastermind.views.PlayCommand ..> mastermind.views.AttemptsView
+mastermind.views.PlayCommand ..> mastermind.views.SecretCombinationView
+mastermind.views.PlayCommand ..> mastermind.views.ResultView
 
 class mastermind.views.PlayMenu [[java:jprieto.mastermind.views.PlayMenu]] {
 	~PlayMenu(PlayController playController)
@@ -63,6 +71,7 @@ utils.Menu <|-- mastermind.views.PlayMenu
 class mastermind.views.PlayView [[java:jprieto.mastermind.views.PlayView]] {
 	~void interact(PlayController playController)
 }
+mastermind.views.PlayView ..> mastermind.views.PlayMenu
 
 class mastermind.views.ProposedCombinationView [[java:jprieto.mastermind.views.ProposedCombinationView]] {
 	-PlayController playController
@@ -72,6 +81,9 @@ class mastermind.views.ProposedCombinationView [[java:jprieto.mastermind.views.P
 }
 utils.WithConsoleView <|-- mastermind.views.ProposedCombinationView
 mastermind.views.ProposedCombinationView *-down-> mastermind.controllers.PlayController
+mastermind.views.ProposedCombinationView ..> mastermind.views.ColorView
+mastermind.views.ProposedCombinationView ..> java.util.ArrayList
+mastermind.views.ProposedCombinationView ..> mastermind.views.MessageView
 
 class mastermind.views.RedoCommand [[java:jprieto.mastermind.views.RedoCommand]] {
 	~RedoCommand(PlayController playController)
@@ -79,6 +91,7 @@ class mastermind.views.RedoCommand [[java:jprieto.mastermind.views.RedoCommand]]
 	#boolean isActive()
 }
 mastermind.views.Command <|-- mastermind.views.RedoCommand
+mastermind.views.RedoCommand ..> mastermind.views.MessageView
 
 class mastermind.views.ResultView [[java:jprieto.mastermind.views.ResultView]] {
 	-PlayController playController
@@ -87,10 +100,14 @@ class mastermind.views.ResultView [[java:jprieto.mastermind.views.ResultView]] {
 }
 utils.WithConsoleView <|-- mastermind.views.ResultView
 mastermind.views.ResultView *-down-> mastermind.controllers.PlayController
+mastermind.views.ResultView ..> mastermind.views.MessageView
 
 class mastermind.views.ResumeView [[java:jprieto.mastermind.views.ResumeView]] {
 	~boolean interact(ResumeController resumeController)
 }
+mastermind.views.ResumeView ..> mastermind.views.YesNoDialog
+mastermind.views.ResumeView ..> mastermind.views.MessageView
+mastermind.views.ResumeView ..> mastermind.controllers.ResumeController
 
 class mastermind.views.SecretCombinationView [[java:jprieto.mastermind.views.SecretCombinationView]] {
 	-Controller controller
@@ -99,13 +116,16 @@ class mastermind.views.SecretCombinationView [[java:jprieto.mastermind.views.Sec
 }
 utils.WithConsoleView <|-- mastermind.views.SecretCombinationView
 mastermind.views.SecretCombinationView *-down-> mastermind.controllers.Controller
+mastermind.views.SecretCombinationView ..> mastermind.views.MessageView
 
 class mastermind.views.StartView [[java:jprieto.mastermind.views.StartView]] {
 	-SecretCombinationView secretCombinationView
 	~void interact(StartController startController)
 }
-mastermind.views.StartView *-down-> mastermind.views.SecretCombinationView
 utils.WithConsoleView <|-- mastermind.views.StartView
+mastermind.views.StartView *-down-> mastermind.views.SecretCombinationView
+mastermind.views.StartView ..> mastermind.controllers.StartController
+mastermind.views.StartView ..> mastermind.views.MessageView
 
 class mastermind.views.UndoCommand [[java:jprieto.mastermind.views.UndoCommand]] {
 	~UndoCommand(PlayController playController)
@@ -113,6 +133,7 @@ class mastermind.views.UndoCommand [[java:jprieto.mastermind.views.UndoCommand]]
 	#boolean isActive()
 }
 mastermind.views.Command <|-- mastermind.views.UndoCommand
+mastermind.views.UndoCommand ..> mastermind.views.MessageView
 
 class mastermind.views.View [[java:jprieto.mastermind.views.View]] {
     -StartView startView
@@ -127,6 +148,7 @@ class mastermind.views.View [[java:jprieto.mastermind.views.View]] {
 mastermind.views.View *-down-> mastermind.views.StartView
 mastermind.views.View *-down-> mastermind.views.PlayView
 mastermind.views.View *-down-> mastermind.views.ResumeView
+mastermind.views.View ..> mastermind.controller.AcceptorController
 
 interface mastermind.controllers.ControllerVisitor [[java:jprieto.mastermind.controllers.ControllerVisitor]] {
 }
