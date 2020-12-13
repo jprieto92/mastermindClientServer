@@ -76,3 +76,15 @@ The structure of this repository is:
 
 ![views](docs/images/paqueteMastermindUtils.png)
 
+## Design patterns implemented
+
+To implement the undo/redo + client/server versions, the design patterns implemented are:
+
+* **State**: Implemented to allow the alteration of the game behavior (through controllers) when the state of the game changes.
+* **Memento**: Implemented to store game snapshots and to be able to execute undo/redo actions.
+* **Command**: Implemented to add multiple actions to the game menu and also to add multiple dispatchers to distributed version.
+* **Proxy**: Implemented to be able to use the Standalone and Client/Server versions, making the controllers (mastermind.controllers) abstract.
+* **Prototype**: implemented for the creation of the dispatcher objects, associating them to the command type (mastermind.distributed.dispatchers). 
+
+
+
