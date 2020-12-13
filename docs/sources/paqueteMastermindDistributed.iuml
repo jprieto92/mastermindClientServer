@@ -14,7 +14,6 @@ class mastermind.distributed.LogicProxy [[java:jprieto.mastermind.distributed.Lo
 }
 mastermind.controllers.Logic <|-- mastermind.distributed.LogicProxy
 mastermind.distributed.LogicProxy *-down-> utils.TCPIP
-mastermind.distributed.LogicProxy  ..> mastermind.controllers.AcceptorController
 
 class mastermind.distributed.MastermindClient [[java:jprieto.mastermind.distributed.MastermindClient]] {
 	#Logic createLogic()
@@ -72,7 +71,7 @@ class mastermind.distributed.SessionProxy [[java:jprieto.mastermind.distributed.
 }
 interface mastermind.models.Session [[java:jprieto.mastermind.models.Session]] {
 }
-mastermind.models.Session <|.. mastermind.distributed.SessionProxy
+mastermind.models.Session <|-- mastermind.distributed.SessionProxy
 mastermind.distributed.SessionProxy *-down-> utils.TCPIP
 mastermind.distributed.SessionProxy ..> mastermind.distributed.dispatchers.FrameType
 mastermind.distributed.SessionProxy ..> mastermind.types.StateValue
