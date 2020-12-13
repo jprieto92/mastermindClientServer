@@ -145,13 +145,13 @@ class mastermind.views.View [[java:jprieto.mastermind.views.View]] {
 	+void visit(PlayController playController)
 	+void visit(ResumeController resumeController)
 }
+mastermind.views.View ..> mastermind.controllers.AcceptorController
 mastermind.views.View *-down-> mastermind.views.StartView
 mastermind.views.View *-down-> mastermind.views.PlayView
 mastermind.views.View *-down-> mastermind.views.ResumeView
-mastermind.views.View ..> mastermind.controller.AcceptorController
 
 interface mastermind.controllers.ControllerVisitor [[java:jprieto.mastermind.controllers.ControllerVisitor]] {
 }
-mastermind.controllers.ControllerVisitor <|.. mastermind.views.View
+mastermind.controllers.ControllerVisitor <|-- mastermind.views.View
 
 @enduml
